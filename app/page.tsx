@@ -5,7 +5,6 @@ import { ServicesBento } from "./components/services-bento";
 import { getHomeMedia } from "./lib/media";
 import Image from "next/image";
 
-const SCHEDULE_URL = "https://momence.com/appointments/93353?boardId=94755";
 const STARTER_PACK_IMAGE = "/assets/%28WEB%29BODYJUNKIES_210124_0064.jpg";
 
 export default async function Home() {

@@ -12,8 +12,12 @@ export function MomencePersonalTrainingEmbed() {
 
   useEffect(() => {
     function handleResizeMessage(e: MessageEvent) {
-      const height = +(e.data?.height as number | string | undefined);
-      const type = e.data?.type as string | undefined;
+      const payload =
+        typeof e.data === "object" && e.data !== null
+          ? (e.data as { height?: number | string; type?: string })
+          : {};
+      const height = Number(payload.height ?? Number.NaN);
+      const type = payload.type;
       const iframe = document.querySelector<HTMLIFrameElement>(`#${IFRAME_ID}`);
 
       if (!type || !type.match("iframe_appointments_93353_resize") || Number.isNaN(height) || !iframe) {
@@ -112,7 +116,7 @@ export function MomencePersonalTrainingEmbed() {
           Share Your Goal First
         </h2>
         <p className="mt-3 max-w-2xl text-sm text-white/80 sm:text-base">
-          Reach out and we'll discuss where you are now and what you want from your sessions.
+          Reach out and we&apos;ll discuss where you are now and what you want from your sessions.
         </p>
         <div className="mt-5 rounded-xl border border-white/10 bg-black/20 p-3 sm:p-4">
           <div ref={leadFormRef} className="min-h-[140px]" />
