@@ -2,6 +2,7 @@ import { GatewaySplit } from "./components/gateway-split";
 import { HomeHero } from "./components/home-hero";
 import { ReviewsCarousel } from "./components/reviews-carousel";
 import { ServicesBento } from "./components/services-bento";
+import { siteConfig } from "./lib/site";
 import { getHomeMedia } from "./lib/media";
 import Image from "next/image";
 
@@ -9,9 +10,30 @@ const STARTER_PACK_IMAGE = "/assets/%28WEB%29BODYJUNKIES_210124_0064.jpg";
 
 export default async function Home() {
   const media = await getHomeMedia();
+  const localBusinessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SportsActivityLocation",
+    name: "Bodyjunkies",
+    url: siteConfig.url,
+    telephone: siteConfig.phoneDisplay,
+    email: siteConfig.email,
+    image: `${siteConfig.url}${media.gatewayImage}`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Islington",
+      addressRegion: "London",
+      addressCountry: "GB",
+    },
+    openingHours: siteConfig.openingHours,
+    sameAs: [siteConfig.social.instagram, siteConfig.social.tiktok],
+  };
 
   return (
     <main className="pb-nav-offset">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+      />
       <HomeHero
         heroImage={media.gatewayImage}
         heroVideo="/assets/52dae399-9b5c-4536-987f-a0fdd2710d18.mov"
@@ -124,6 +146,12 @@ export default async function Home() {
               className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               View Class Schedule
+            </a>
+            <a
+              href="/pricing"
+              className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              View Pricing
             </a>
           </div>
         </div>

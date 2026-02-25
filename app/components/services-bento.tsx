@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Dumbbell, Users } from "lucide-react";
+import { ArrowRight, Dumbbell, Users, Wallet } from "lucide-react";
 import type { ComponentType } from "react";
 
 type ServicesBentoProps = {
@@ -32,6 +32,13 @@ const tiles: Tile[] = [
     cta: "Book a class",
     icon: Dumbbell,
   },
+  {
+    title: "Pricing & Memberships",
+    copy: "See all pathways before you commit: Starter Pack, classes, and PT.",
+    href: "/pricing",
+    cta: "View pricing",
+    icon: Wallet,
+  },
 ];
 
 function isVideo(url: string) {
@@ -54,7 +61,7 @@ export function ServicesBento({ media }: ServicesBentoProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {tiles.map((tile, index) => {
           const Icon = tile.icon;
           const mediaUrl = tileMedia[index];

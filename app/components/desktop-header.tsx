@@ -5,9 +5,11 @@ import Link from "next/link";
 
 const navLinks = [
   { label: "Home", href: "/" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Services", href: "/#services" },
+  { label: "FAQ", href: "/faq" },
   { label: "Trainers", href: "/team" },
-  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function DesktopHeader() {

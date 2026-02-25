@@ -1,12 +1,19 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { trackEvent } from "../lib/analytics";
 
 const MOMENCE_SCRIPT_SRC =
   "https://momence.com/plugin/host-schedule/host-schedule.js";
 
 export function MomenceScheduleEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    trackEvent("schedule_view_load", {
+      path: window.location.pathname,
+    });
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;

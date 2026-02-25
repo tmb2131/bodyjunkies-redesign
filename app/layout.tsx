@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { DesktopHeader } from "./components/desktop-header";
+import { AnalyticsAutoTracker } from "./components/analytics-auto-tracker";
+import { CookieNotice } from "./components/cookie-notice";
 import { MobileBottomNavLazy } from "./components/mobile-bottom-nav-lazy";
+import { SiteFooter } from "./components/site-footer";
+import { siteConfig } from "./lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,10 +19,30 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
 export const metadata: Metadata = {
   title: "Bodyjunkies | Fuel Your Fire",
   description:
     "Bodyjunkies boxing and conditioning in London. Train with grit, community, and expert coaching.",
+  metadataBase: new URL(siteConfig.url),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: siteConfig.url,
+    title: "Bodyjunkies | Fuel Your Fire",
+    description:
+      "Boxing and conditioning in Islington with coach-led sessions, real accountability, and a strong community.",
+    siteName: "Bodyjunkies",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bodyjunkies | Fuel Your Fire",
+    description:
+      "Boxing and conditioning in Islington with coach-led sessions and real progress.",
+  },
 };
 
 export default function RootLayout({
@@ -30,12 +55,39 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://momence.com" />
         <link rel="dns-prefetch" href="https://momence.com" />
+        {gtmId ? (
+          <Script
+            id="gtm-base"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${gtmId}');`,
+            }}
+          />
+        ) : null}
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {gtmId ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="gtm"
+            />
+          </noscript>
+        ) : null}
         <DesktopHeader />
+        <AnalyticsAutoTracker />
         {children}
+        <SiteFooter />
+        <CookieNotice />
         <MobileBottomNavLazy />
       </body>
     </html>

@@ -1,9 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { trackEvent } from "../lib/analytics";
 
-const STARTER_PACK_URL =
+const BOOKING_CONFIRMED_URL = "https://bodyjunkies.co.uk/booking-confirmed";
+const STARTER_PACK_BASE_URL =
   "https://momence.com/Bodyjunkies/membership/Intro-Package/539286";
+
+function withReturnUrl(url: string) {
+  const nextUrl = new URL(url);
+  // Add common return-url keys so completion can route back deterministically.
+  nextUrl.searchParams.set("return_url", BOOKING_CONFIRMED_URL);
+  nextUrl.searchParams.set("returnUrl", BOOKING_CONFIRMED_URL);
+  return nextUrl.toString();
+}
+
+const STARTER_PACK_URL = withReturnUrl(STARTER_PACK_BASE_URL);
 
 export function StarterPackEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,6 +24,7 @@ export function StarterPackEmbed() {
     () => typeof window !== "undefined" && !("IntersectionObserver" in window)
   );
   const [iframeHeight, setIframeHeight] = useState(1200);
+  const hasTrackedBookingCompleteRef = useRef(false);
 
   useEffect(() => {
     if (shouldLoad) {
@@ -71,10 +84,37 @@ export function StarterPackEmbed() {
       }
 
       if (typeof data.type === "string" && !data.type.includes("resize")) {
+        const message = data.type.toLowerCase();
+        if (
+          !hasTrackedBookingCompleteRef.current &&
+          /(book|checkout|payment).*(complete|success|confirmed)|confirmation/.test(
+            message
+          )
+        ) {
+          hasTrackedBookingCompleteRef.current = true;
+          trackEvent("booking_complete", {
+            source: "starter_pack_iframe",
+            path: window.location.pathname,
+          });
+        }
         return;
       }
 
       setIframeHeight(Math.ceil(height));
+
+      const rawMessage = JSON.stringify(event.data).toLowerCase();
+      if (
+        !hasTrackedBookingCompleteRef.current &&
+        /(book|checkout|payment).*(complete|success|confirmed)|confirmation/.test(
+          rawMessage
+        )
+      ) {
+        hasTrackedBookingCompleteRef.current = true;
+        trackEvent("booking_complete", {
+          source: "starter_pack_iframe",
+          path: window.location.pathname,
+        });
+      }
     };
 
     window.addEventListener("message", onMessage);

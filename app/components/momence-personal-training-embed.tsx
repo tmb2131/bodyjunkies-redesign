@@ -2,13 +2,28 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { trackEvent } from "../lib/analytics";
 
 const LEAD_FORM_SCRIPT_SRC = "https://momence.com/plugin/lead-form/lead-form.js";
 const IFRAME_ID = "iframe_appointments_93353";
 const LEAD_FORM_CONTAINER_ID = "momence-plugin-lead-form";
+const BOOKING_CONFIRMED_URL = "https://bodyjunkies.co.uk/booking-confirmed";
+const APPOINTMENTS_BASE_URL = "https://momence.com/appointments/93353";
+
+function withReturnUrl(url: string) {
+  const nextUrl = new URL(url);
+  // Add common return-url keys so completion can route back deterministically.
+  nextUrl.searchParams.set("return_url", BOOKING_CONFIRMED_URL);
+  nextUrl.searchParams.set("returnUrl", BOOKING_CONFIRMED_URL);
+  return nextUrl.toString();
+}
+
+const APPOINTMENTS_URL = withReturnUrl(APPOINTMENTS_BASE_URL);
 
 export function MomencePersonalTrainingEmbed() {
   const leadFormRef = useRef<HTMLDivElement>(null);
+  const hasTrackedLeadSubmitRef = useRef(false);
+  const hasTrackedBookingCompleteRef = useRef(false);
 
   useEffect(() => {
     function handleResizeMessage(e: MessageEvent) {
@@ -25,6 +40,21 @@ export function MomencePersonalTrainingEmbed() {
       }
 
       iframe.height = `${height}px`;
+
+      const textPayload =
+        typeof e.data === "string" ? e.data.toLowerCase() : JSON.stringify(e.data).toLowerCase();
+      if (
+        !hasTrackedBookingCompleteRef.current &&
+        /(book|appointment|checkout).*(complete|success|confirmed)|confirmation/.test(
+          textPayload
+        )
+      ) {
+        hasTrackedBookingCompleteRef.current = true;
+        trackEvent("booking_complete", {
+          source: "momence_post_message",
+          path: window.location.pathname,
+        });
+      }
     }
 
     window.addEventListener("message", handleResizeMessage, false);
@@ -65,7 +95,51 @@ export function MomencePersonalTrainingEmbed() {
     leadFormContainer.appendChild(wrapper);
     leadFormContainer.appendChild(script);
 
+    const onSubmit = () => {
+      if (hasTrackedLeadSubmitRef.current) return;
+      hasTrackedLeadSubmitRef.current = true;
+      trackEvent("pt_form_submit", {
+        source: "lead_form",
+        path: window.location.pathname,
+      });
+    };
+    leadFormContainer.addEventListener("submit", onSubmit, true);
+
+    const onMessage = (event: MessageEvent) => {
+      const message =
+        typeof event.data === "string"
+          ? event.data.toLowerCase()
+          : JSON.stringify(event.data).toLowerCase();
+
+      if (
+        !hasTrackedLeadSubmitRef.current &&
+        /(lead|form).*(submit|success)|enquiry|inquiry/.test(message)
+      ) {
+        hasTrackedLeadSubmitRef.current = true;
+        trackEvent("pt_form_submit", {
+          source: "lead_form_post_message",
+          path: window.location.pathname,
+        });
+      }
+
+      if (
+        !hasTrackedBookingCompleteRef.current &&
+        /(book|appointment|checkout).*(complete|success|confirmed)|confirmation/.test(
+          message
+        )
+      ) {
+        hasTrackedBookingCompleteRef.current = true;
+        trackEvent("booking_complete", {
+          source: "momence_post_message",
+          path: window.location.pathname,
+        });
+      }
+    };
+    window.addEventListener("message", onMessage);
+
     return () => {
+      leadFormContainer.removeEventListener("submit", onSubmit, true);
+      window.removeEventListener("message", onMessage);
       script.remove();
     };
   }, []);
@@ -92,7 +166,7 @@ export function MomencePersonalTrainingEmbed() {
         <div className="mt-5 overflow-hidden rounded-xl border border-white/15 bg-black/20 p-2 sm:p-3">
           <iframe
             id={IFRAME_ID}
-            src="https://momence.com/appointments/93353"
+            src={APPOINTMENTS_URL}
             className="min-h-[60vh] w-full border-0"
             allowFullScreen
             scrolling="no"

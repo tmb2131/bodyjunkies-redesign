@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CalendarCheck2, Dumbbell, House, Info, Users } from "lucide-react";
+import { CalendarCheck2, CircleHelp, Dumbbell, House, Mail, Wallet } from "lucide-react";
 
 const links = [
   { label: "Home", href: "/", icon: House },
   { label: "Services", href: "#services", icon: Dumbbell },
-  { label: "Trainers", href: "/team", icon: Users },
-  { label: "About", href: "/about", icon: Info },
+  { label: "Pricing", href: "/pricing", icon: Wallet },
+  { label: "FAQ", href: "/faq", icon: CircleHelp },
+  { label: "Contact", href: "/contact", icon: Mail },
 ];
 
 export function MobileBottomNav() {
@@ -16,7 +17,7 @@ export function MobileBottomNav() {
       aria-label="Mobile navigation"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-white/15 bg-[color:var(--bj-navy)]/95 px-3 pb-[calc(0.8rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur md:hidden"
     >
-      <ul className="mx-auto grid max-w-lg grid-cols-5 gap-2">
+      <ul className="mx-auto grid max-w-lg grid-cols-6 gap-2">
         {links.map((link) => {
           const Icon = link.icon;
           return (
