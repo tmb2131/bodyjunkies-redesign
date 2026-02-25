@@ -26,12 +26,6 @@ export default function PersonalTrainingPage() {
           <h1 className="mt-2 text-3xl font-black uppercase leading-tight text-white sm:text-4xl">
             1:1 Coaching
           </h1>
-          <p className="mt-3 max-w-2xl text-sm text-white/80 sm:text-base">
-            Book a focused personal training slot, or send your goals first through the lead form.
-          </p>
-          <p className="mt-2 max-w-2xl text-xs uppercase tracking-[0.16em] text-white/65">
-            Goal-first if you need direction. Direct booking if you are ready.
-          </p>
         </div>
         <MomencePersonalTrainingEmbed />
       </div>
