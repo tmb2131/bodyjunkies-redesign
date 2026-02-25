@@ -17,48 +17,59 @@ type Trainer = {
 
 const trainers: Trainer[] = [
   {
-    id: "jordan",
-    name: "Jordan Hale",
-    role: "Head Boxing Coach",
+    id: "alan",
+    name: "Alan",
+    role: "Combat Sports Coach",
     image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
-    alt: "Jordan coaching combinations on the pads",
+    alt: "Alan coaching boxing combinations on pads",
     professionalInfo:
-      "England Boxing certified with 10+ years coaching amateurs and first-time members. Focused on clean mechanics, ring IQ, and measurable progress.",
+      "With over 30 years of experience in combat sports, Alan is a former British Taekwondo Champion who grew up in an era where grit, sweat, and hard work were part of everyday life. He has coached both amateur and professional fighters, helping them sharpen technique, build relentless stamina, and develop mental toughness in and out of the ring.",
     personalStyle:
-      "Direct and technical. Jordan keeps rounds sharp, calls out details fast, and builds confidence through repetition under pressure.",
+      "High-energy and no-nonsense. Alan builds every session on determination, resilience, and respect. Expect to train hard, push your limits, and earn every drop of progress. \"No shortcuts. Just sweat, skill, and spirit.\"",
   },
   {
-    id: "mara",
-    name: "Mara Singh",
-    role: "Strength & Conditioning Coach",
+    id: "jason",
+    name: "Jason",
+    role: "England Boxing & BBBoC Coach",
     image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
-    alt: "Mara leading a conditioning block on the gym floor",
+    alt: "Jason coaching technical boxing in the ring",
     professionalInfo:
-      "Specialist in boxing-specific strength systems and energy development. Designs progressive blocks that support power, movement quality, and recovery.",
+      "With over a decade coaching in the ring and two decades in professional fitness, Jason is a certified England Boxing Level 1 Amateur Coach and a British Boxing Board of Control (BBBoC) Licensed Professional Coach. He has trained everyone from complete beginners to competitive fighters, with specialties in technical and tactical boxing, amateur/professional/white-collar fight prep, and strength, conditioning, and endurance training.",
     personalStyle:
-      "Calm intensity. Mara balances hard output with smart pacing so members can push without burning out.",
+      "Jason combines technical detail, conditioning, and mindset development to help boxers improve fitness, refine technique, and build confidence inside and outside the ring. \"Boxing builds character, every session is an opportunity to grow - physically, mentally, and emotionally. Come and join one of my sessions and you won't regret it.\"",
   },
   {
-    id: "eli",
-    name: "Eli Brooks",
-    role: "Fundamentals Coach",
+    id: "sabrina",
+    name: "Sabrina",
+    role: "Boxing Coach & Active Competitor",
     image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
-    alt: "Eli teaching guard, footwork, and stance",
+    alt: "Sabrina coaching fundamentals and ring technique",
     professionalInfo:
-      "Works with beginners building stance, guard, footwork, and punch sequencing. Known for turning complex boxing cues into simple repeatable actions.",
+      "Sabrina began her boxing journey in Australia before moving to London and continuing her progression as a dedicated member of Bodyjunkies. She competed in white-collar bouts before stepping into the amateur boxing circuit, and now coaches while actively competing.",
     personalStyle:
-      "Patient and clear. Eli slows the right moments down, then layers speed once movement quality is locked in.",
+      "Detailed, technical, and tough. Sabrina helps boxers of all levels build strong fundamentals while enjoying the process. Her sessions blend expert guidance, motivation, and a genuine love for the sport.",
   },
   {
-    id: "tasha",
-    name: "Tasha Reid",
-    role: "Performance Boxing Coach",
+    id: "chudi",
+    name: "Chudi",
+    role: "ABA Level 2 Coach & Head Trainer",
     image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
-    alt: "Tasha running high-tempo bag and pad rounds",
+    alt: "Chudi delivering fundamentals-focused boxing coaching",
     professionalInfo:
-      "Leads intermediate and advanced sessions centered on tempo control, combination depth, and tactical transitions between offense and defense.",
+      "Chudi is an Amateur Boxing Alliance Level 2 coach and head trainer of Trojan ABC, with 15 years in the sport as both a boxer and a teacher.",
     personalStyle:
-      "High-energy and demanding. Tasha pushes intent every round while keeping technique tight and accountable.",
+      "Focused on fundamentals and technique, Chudi's coaching gets you fighting fit and ring ready.",
+  },
+  {
+    id: "stephen",
+    name: "Stephen",
+    role: "Personal Trainer",
+    image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
+    alt: "Stephen leading high-intensity fitness training",
+    professionalInfo:
+      "Stephen is a highly experienced personal trainer who has helped individuals achieve their fitness goals for the past 15 years.",
+    personalStyle:
+      "Specializing in HIIT and weight training, Stephen's sessions are built to increase muscle, burn fat, and improve overall fitness.",
   },
 ];
 
