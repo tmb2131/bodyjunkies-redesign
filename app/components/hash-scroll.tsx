@@ -18,7 +18,7 @@ export function HashScroll() {
   useEffect(() => {
     if (pathname !== "/" || typeof window === "undefined") return;
 
-    let timeout: ReturnType<typeof setTimeout> | undefined;
+    let timeout: number | undefined;
 
     const run = () => {
       if (window.location.hash?.slice(1) !== "services") return;

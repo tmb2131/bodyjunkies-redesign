@@ -50,13 +50,15 @@ export function SiteFooter() {
             Contact
           </p>
           <div className="mt-4 space-y-3 text-sm text-white/85">
-            <a
-              href={siteConfig.phoneHref}
-              className="flex items-center gap-2 transition hover:text-white"
-            >
-              <Phone className="h-4 w-4" />
-              {siteConfig.phoneDisplay}
-            </a>
+            {siteConfig.phoneDisplay && siteConfig.phoneHref ? (
+              <a
+                href={siteConfig.phoneHref}
+                className="flex items-center gap-2 transition hover:text-white"
+              >
+                <Phone className="h-4 w-4" />
+                {siteConfig.phoneDisplay}
+              </a>
+            ) : null}
             <a
               href={siteConfig.emailHref}
               className="flex items-center gap-2 transition hover:text-white"
@@ -64,15 +66,17 @@ export function SiteFooter() {
               <Mail className="h-4 w-4" />
               {siteConfig.email}
             </a>
-            <a
-              href={siteConfig.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 transition hover:text-white"
-            >
-              <Instagram className="h-4 w-4" />
-              Instagram
-            </a>
+            {siteConfig.social.instagram ? (
+              <a
+                href={siteConfig.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 transition hover:text-white"
+              >
+                <Instagram className="h-4 w-4" />
+                Instagram
+              </a>
+            ) : null}
           </div>
           <div className="mt-5 rounded-xl border border-white/15 bg-white/[0.03] p-4">
             <p className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-white/70">

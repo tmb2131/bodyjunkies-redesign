@@ -43,7 +43,7 @@ export function DesktopHeader() {
               href="/starter-pack"
               className="inline-flex rounded-full bg-[var(--bj-red)] px-5 py-2.5 text-sm font-bold uppercase tracking-[0.12em] text-white"
             >
-              Book Now
+              Starter Pack £49
             </Link>
           </motion.div>
         </nav>

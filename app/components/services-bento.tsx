@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Dumbbell, Users, Wallet } from "lucide-react";
 import type { ComponentType } from "react";
+import { getVideoSourceCandidates } from "../lib/video";
 
 type ServicesBentoProps = {
   media: string[];
@@ -86,8 +88,15 @@ export function ServicesBento({ media }: ServicesBentoProps) {
                     loop
                     playsInline
                     preload="metadata"
+                    aria-label={`${tile.title} training footage at Bodyjunkies`}
                   >
-                    <source src={mediaUrl} />
+                    {getVideoSourceCandidates(mediaUrl).map((source) => (
+                      <source
+                        key={source.src}
+                        src={source.src}
+                        type={source.type}
+                      />
+                    ))}
                   </video>
                 ) : (
                   <Image
@@ -114,17 +123,20 @@ export function ServicesBento({ media }: ServicesBentoProps) {
                   <p className="max-w-md text-sm text-white/85">{tile.copy}</p>
                 </div>
 
-                <motion.a
+                <motion.div
                   whileTap={{ scale: 0.98 }}
                   whileHover={{ scale: 1.02 }}
-                  href={tile.href}
-                  target={external ? "_blank" : undefined}
-                  rel={external ? "noopener noreferrer" : undefined}
-                  className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm"
                 >
-                  {tile.cta}
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </motion.a>
+                  <Link
+                    href={tile.href}
+                    target={external ? "_blank" : undefined}
+                    rel={external ? "noopener noreferrer" : undefined}
+                    className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm"
+                  >
+                    {tile.cta}
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </motion.div>
               </div>
             </motion.article>
           );

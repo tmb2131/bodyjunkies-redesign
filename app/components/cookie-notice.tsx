@@ -1,22 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-const COOKIE_NOTICE_KEY = "bj_cookie_notice_dismissed_v1";
+import { useState } from "react";
+import {
+  getStoredCookieConsent,
+  setStoredCookieConsent,
+} from "../lib/cookie-consent";
 
 export function CookieNotice() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof window !== "undefined" && !getStoredCookieConsent()
+  );
 
-  useEffect(() => {
-    const dismissed = window.localStorage.getItem(COOKIE_NOTICE_KEY);
-    if (!dismissed) {
-      setVisible(true);
-    }
-  }, []);
-
-  const dismiss = () => {
-    window.localStorage.setItem(COOKIE_NOTICE_KEY, "1");
+  const chooseConsent = (status: "accepted" | "rejected") => {
+    setStoredCookieConsent(status);
     setVisible(false);
   };
 
@@ -31,8 +28,9 @@ export function CookieNotice() {
           Cookies
         </p>
         <p className="mt-2 text-sm text-white/90">
-          We use cookies and analytics to improve performance and conversion
-          journeys. Learn more in our{" "}
+          We use necessary cookies for core site functionality. Optional
+          analytics helps us improve performance and booking journeys. Learn
+          more in our{" "}
           <Link
             href="/cookies"
             className="underline decoration-white/60 underline-offset-4"
@@ -48,13 +46,22 @@ export function CookieNotice() {
           </Link>
           .
         </p>
-        <button
-          type="button"
-          onClick={dismiss}
-          className="mt-3 inline-flex min-h-11 items-center rounded-full bg-[var(--bj-red)] px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02] active:scale-[0.98]"
-        >
-          Understood
-        </button>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => chooseConsent("accepted")}
+            className="inline-flex min-h-11 items-center rounded-full bg-[var(--bj-red)] px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Accept Analytics
+          </button>
+          <button
+            type="button"
+            onClick={() => chooseConsent("rejected")}
+            className="inline-flex min-h-11 items-center rounded-full border border-white/35 bg-white/10 px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Necessary Only
+          </button>
+        </div>
       </div>
     </div>
   );

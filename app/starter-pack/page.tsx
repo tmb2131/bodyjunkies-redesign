@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { StarterPackEmbedLazy } from "../components/starter-pack-embed-lazy";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Starter Pack | Bodyjunkies",
   description:
     "Get started with the Starter Pack — gloves, intro sessions, and your base at Bodyjunkies.",
-};
+  path: "/starter-pack",
+});
 
 export default function StarterPackPage() {
   return (

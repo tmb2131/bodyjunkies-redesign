@@ -1,5 +1,7 @@
 "use client";
 
+import { getStoredCookieConsent } from "./cookie-consent";
+
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
@@ -11,6 +13,7 @@ type AnalyticsPayload = Record<string, string | number | boolean | null>;
 
 export function trackEvent(event: string, payload: AnalyticsPayload = {}) {
   if (typeof window === "undefined") return;
+  if (getStoredCookieConsent() !== "accepted") return;
 
   const data = { event, ...payload };
   window.dataLayer = window.dataLayer ?? [];

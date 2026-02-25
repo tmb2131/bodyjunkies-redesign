@@ -5,17 +5,22 @@ import { ServicesBento } from "./components/services-bento";
 import { siteConfig } from "./lib/site";
 import { getHomeMedia } from "./lib/media";
 import Image from "next/image";
+import Link from "next/link";
 
 const STARTER_PACK_IMAGE = "/assets/%28WEB%29BODYJUNKIES_210124_0064.jpg";
 
 export default async function Home() {
   const media = await getHomeMedia();
+  const socialProfiles = [
+    siteConfig.social.instagram,
+    siteConfig.social.tiktok,
+  ].filter(Boolean);
+
   const localBusinessJsonLd = {
     "@context": "https://schema.org",
     "@type": "SportsActivityLocation",
     name: "Bodyjunkies",
     url: siteConfig.url,
-    telephone: siteConfig.phoneDisplay,
     email: siteConfig.email,
     image: `${siteConfig.url}${media.gatewayImage}`,
     address: {
@@ -25,7 +30,8 @@ export default async function Home() {
       addressCountry: "GB",
     },
     openingHours: siteConfig.openingHours,
-    sameAs: [siteConfig.social.instagram, siteConfig.social.tiktok],
+    ...(siteConfig.phoneDisplay ? { telephone: siteConfig.phoneDisplay } : {}),
+    ...(socialProfiles.length ? { sameAs: socialProfiles } : {}),
   };
 
   return (
@@ -102,12 +108,12 @@ export default async function Home() {
                 structure, accountability, and proper boxing detail in every
                 session.
               </p>
-              <a
+              <Link
                 href="/team"
                 className="mt-6 inline-flex rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
               >
                 Meet The Team
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -129,18 +135,18 @@ export default async function Home() {
             If you are ready to move now, lock your next class slot.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a
+            <Link
               href="/starter-pack"
               className="inline-flex items-center justify-center rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Starter Pack £49
-            </a>
-            <a
+            </Link>
+            <Link
               href="/schedule"
               className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               View Class Schedule
-            </a>
+            </Link>
           </div>
         </div>
       </section>

@@ -11,6 +11,12 @@
   --mobile-nav-height: 5.5rem;
   --floating-cta-bottom-mobile: calc(var(--mobile-nav-height) + 0.5rem);
   --cookie-notice-bottom-mobile: calc(var(--mobile-nav-height) + 1rem);
+  --font-heading:
+    "Nourd Bold", "Nourd", "Arial Black", "Aileron Heavy", var(--font-geist-sans),
+    Arial, Helvetica, sans-serif;
+  --font-body:
+    "Aileron Regular", "Aileron", var(--font-geist-sans), Arial, Helvetica,
+    sans-serif;
 }
 
 @theme inline {
@@ -29,13 +35,32 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   min-height: 100svh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
 }
 
 a,
 button {
   transition: transform 200ms ease, opacity 200ms ease, background-color 200ms ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--bj-orange);
+  outline-offset: 3px;
 }
 
 @media (min-width: 768px) {

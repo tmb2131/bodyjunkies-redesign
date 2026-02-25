@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ArrowLeft, Mail, MapPin, Phone } from "lucide-react";
 import { siteConfig } from "../lib/site";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Contact | Bodyjunkies",
   description:
     "Contact Bodyjunkies in Islington for class bookings, Starter Pack questions, and personal training enquiries.",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
@@ -33,18 +35,20 @@ export default function ContactPage() {
           </p>
 
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <a
-              href={siteConfig.phoneHref}
-              className="rounded-xl border border-white/15 bg-black/20 p-4 transition hover:scale-[1.01]"
-            >
-              <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
-                <Phone className="h-4 w-4" />
-                Phone
-              </p>
-              <p className="mt-2 text-lg font-bold text-white">
-                {siteConfig.phoneDisplay}
-              </p>
-            </a>
+            {siteConfig.phoneDisplay && siteConfig.phoneHref ? (
+              <a
+                href={siteConfig.phoneHref}
+                className="rounded-xl border border-white/15 bg-black/20 p-4 transition hover:scale-[1.01]"
+              >
+                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
+                  <Phone className="h-4 w-4" />
+                  Phone
+                </p>
+                <p className="mt-2 text-lg font-bold text-white">
+                  {siteConfig.phoneDisplay}
+                </p>
+              </a>
+            ) : null}
             <a
               href={siteConfig.emailHref}
               className="rounded-xl border border-white/15 bg-black/20 p-4 transition hover:scale-[1.01]"
@@ -78,18 +82,18 @@ export default function ContactPage() {
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <a
+            <Link
               href="/starter-pack"
               className="inline-flex items-center justify-center rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
             >
               Starter Pack £49
-            </a>
-            <a
+            </Link>
+            <Link
               href="/schedule"
               className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
             >
               View Schedule
-            </a>
+            </Link>
           </div>
         </section>
       </div>

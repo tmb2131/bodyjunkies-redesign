@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
 import { ArrowRight, Flame, Shield } from "lucide-react";
+import { getVideoSourceCandidates } from "../lib/video";
 
 type GatewaySplitProps = {
   beginnerImage: string;
@@ -20,6 +22,9 @@ export function GatewaySplit({
 }: GatewaySplitProps) {
   const { scrollY } = useScroll();
   const [showFloatingCta, setShowFloatingCta] = useState(false);
+  const experiencedVideoSources = experiencedVideo
+    ? getVideoSourceCandidates(experiencedVideo)
+    : [];
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setShowFloatingCta(latest > 760);
@@ -52,25 +57,28 @@ export function GatewaySplit({
                 <Shield className="h-3.5 w-3.5" />
                 Beginner
               </span>
-              <h1 className="text-3xl font-black uppercase leading-[0.95] text-white sm:text-5xl">
+              <h2 className="text-3xl font-black uppercase leading-[0.95] text-white sm:text-5xl">
                 Start With
                 <br />
                 The Gloves
-              </h1>
+              </h2>
               <p className="max-w-sm text-sm text-white/85 sm:text-base">
                 Build your base in the Starter Pack and keep your brand-new boxing
                 gloves and wraps as part of your kit.
               </p>
             </div>
-            <motion.a
+            <motion.div
               whileTap={{ scale: 0.98 }}
               whileHover={{ scale: 1.01 }}
-              href={STARTER_PACK_PATH}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm sm:w-fit"
             >
-              Starter Pack £49
-              <ArrowRight className="h-4 w-4" />
-            </motion.a>
+              <Link
+                href={STARTER_PACK_PATH}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm sm:w-fit"
+              >
+                Starter Pack £49
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
           </div>
         </motion.article>
 
@@ -91,8 +99,11 @@ export function GatewaySplit({
               playsInline
               preload="metadata"
               poster={experiencedImage}
+              aria-label="Experienced boxers training at Bodyjunkies"
             >
-              <source src={experiencedVideo} />
+              {experiencedVideoSources.map((source) => (
+                <source key={source.src} src={source.src} type={source.type} />
+              ))}
             </video>
           ) : (
             <Image
@@ -120,15 +131,18 @@ export function GatewaySplit({
                 lock your next slot.
               </p>
             </div>
-            <motion.a
+            <motion.div
               whileTap={{ scale: 0.98 }}
               whileHover={{ scale: 1.02 }}
-              href="/schedule"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm sm:w-fit"
             >
-              Book Session
-              <ArrowRight className="h-4 w-4" />
-            </motion.a>
+              <Link
+                href="/schedule"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm sm:w-fit"
+              >
+                Book Session
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </motion.div>
           </div>
         </motion.article>
         </div>
@@ -139,15 +153,18 @@ export function GatewaySplit({
         transition={{ duration: 0.25 }}
         className="pointer-events-none fixed inset-x-4 bottom-[calc(var(--floating-cta-bottom-mobile)+env(safe-area-inset-bottom))] z-30 hidden justify-center md:inset-x-auto md:right-6 md:bottom-6 md:flex"
       >
-        <motion.a
+        <motion.div
           whileTap={{ scale: 0.98 }}
           whileHover={{ scale: 1.02 }}
-          href={STARTER_PACK_PATH}
-          className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/70 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm"
         >
-          Starter Pack £49
-          <ArrowRight className="h-4 w-4" />
-        </motion.a>
+          <Link
+            href={STARTER_PACK_PATH}
+            className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/70 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm"
+          >
+            Starter Pack £49
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </motion.div>
       </motion.div>
     </>
   );

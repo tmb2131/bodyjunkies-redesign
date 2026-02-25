@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { buildPageMetadata } from "../lib/seo";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Pricing & Memberships | Bodyjunkies",
   description:
     "Explore Bodyjunkies pricing pathways: Starter Pack, class bookings, and personal training options in Islington.",
-};
+  path: "/pricing",
+});
 
 export default function PricingPage() {
   return (
@@ -44,13 +46,13 @@ export default function PricingPage() {
                 Best for beginners. Includes intro sessions and your gloves so
                 you can build a proper base from day one.
               </p>
-              <a
+              <Link
                 href="/starter-pack"
                 className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--bj-red)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
               >
-                Start Here
+                Starter Pack £49
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </article>
 
             <article className="rounded-2xl border border-white/15 bg-black/20 p-5">
@@ -68,13 +70,13 @@ export default function PricingPage() {
                 <li>Strength and conditioning blocks</li>
                 <li>Live schedule availability</li>
               </ul>
-              <a
+              <Link
                 href="/schedule"
                 className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
               >
                 View Schedule
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </article>
 
             <article className="rounded-2xl border border-white/15 bg-black/20 p-5">
@@ -93,13 +95,13 @@ export default function PricingPage() {
                 <li>Share goals with lead form</li>
                 <li>Tailored coaching approach</li>
               </ul>
-              <a
+              <Link
                 href="/personal-training"
                 className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
               >
                 Book 1:1
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </article>
           </div>
 

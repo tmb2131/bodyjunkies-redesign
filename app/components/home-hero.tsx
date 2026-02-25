@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getVideoSourceCandidates } from "../lib/video";
 
 type HomeHeroProps = {
   heroImage: string;
@@ -7,6 +9,8 @@ type HomeHeroProps = {
 };
 
 export function HomeHero({ heroImage, heroVideo }: HomeHeroProps) {
+  const videoSources = heroVideo ? getVideoSourceCandidates(heroVideo) : [];
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
       <div className="relative min-h-[60svh] overflow-hidden rounded-3xl border border-white/20 sm:min-h-[74svh]">
@@ -19,8 +23,11 @@ export function HomeHero({ heroImage, heroVideo }: HomeHeroProps) {
             playsInline
             preload="metadata"
             poster={heroImage}
+            aria-label="Bodyjunkies members training in a boxing and conditioning session"
           >
-            <source src={heroVideo} />
+            {videoSources.map((source) => (
+              <source key={source.src} src={source.src} type={source.type} />
+            ))}
           </video>
         ) : (
           <Image
@@ -49,19 +56,19 @@ export function HomeHero({ heroImage, heroVideo }: HomeHeroProps) {
               real training standard. Trusted by a growing crew with 90+ reviews.
             </p>
             <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              <a
+              <Link
                 href="/starter-pack"
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.03] active:scale-[0.98] sm:w-auto"
               >
                 Starter Pack £49
                 <ArrowRight className="h-4 w-4" />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/schedule"
                 className="inline-flex w-full items-center justify-center rounded-full border border-white/45 bg-black/30 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
               >
                 View Schedule
-              </a>
+              </Link>
             </div>
           </div>
         </div>
