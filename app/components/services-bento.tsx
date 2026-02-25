@@ -13,6 +13,7 @@ type Tile = {
   title: string;
   copy: string;
   href: string;
+  cta: string;
   icon: ComponentType<{ className?: string }>;
 };
 
@@ -21,12 +22,14 @@ const tiles: Tile[] = [
     title: "Personal Training",
     copy: "1:1 coaching tailored to your level, goals, and pace.",
     href: "/personal-training",
+    cta: "Book 1:1 Session",
     icon: Users,
   },
   {
     title: "Strength & Conditioning",
     copy: "Power-focused coaching tailored to your level, pace, and goals.",
     href: "/schedule/strength-conditioning",
+    cta: "Book a class",
     icon: Dumbbell,
   },
 ];
@@ -112,7 +115,7 @@ export function ServicesBento({ media }: ServicesBentoProps) {
                   rel={external ? "noopener noreferrer" : undefined}
                   className="inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm"
                 >
-                  Open
+                  {tile.cta}
                   <ArrowRight className="h-3.5 w-3.5" />
                 </motion.a>
               </div>

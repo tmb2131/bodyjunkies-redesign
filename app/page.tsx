@@ -53,7 +53,13 @@ export default async function Home() {
         </div>
       </section>
 
-      <ServicesBento media={media.serviceAssets} />
+      <ServicesBento
+        media={[
+          media.serviceAssets[0],
+          "/assets/%28WEB%29BODYJUNKIES_210124_1301.jpg",
+          ...media.serviceAssets.slice(2),
+        ].filter(Boolean) as string[]}
+      />
 
       <section
         id="trainers"
