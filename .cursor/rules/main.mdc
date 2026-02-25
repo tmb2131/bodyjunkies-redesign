@@ -1,0 +1,41 @@
+---
+description: Global project rules for the Bodyjunkies website redesign.
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Project: Bodyjunkies Website Redesign
+
+## Tech Stack
+- Framework: Next.js 15+ (App Router)
+- Styling: Tailwind CSS
+- UI Library: shadcn/ui
+- Components: Use 'Lucide-React' for icons.
+- Integrations: Momence (Booking & PT scheduling).
+
+## Coding Standards
+- Be concise. Do not explain standard code patterns unless asked.
+- Use 'Functional Components' only. No Class components.
+- Default to 'Server Components' unless interactivity (`useState`, `useEffect`) is strictly required.
+- Always aim for 'Mobile-First' design.
+
+## Brand Voice & Copy Constraints (Critical)
+- **Anti-Overselling:** Strictly avoid "salesy" language. No mentions of "discounts," "save money," "limited time offers," or "act now".
+- **Tone:** Let the vibe and expert coaching speak for itself. Focus on grit, power, and the "inner fire".
+
+## UI/UX & Navigation Rules
+- **The "Strong Gateway" Pattern:** Hero sections should prioritize high-impact video over text.
+- **User Segmentation:** Use a "Beginner vs. Experienced" fork early in the funnel:
+  - Beginner: Focus on the "one with gloves" (Starter Pack).
+  - Experienced: Focus on equipment and booking sessions.
+- **Concise Layouts:** Avoid "endless scrolls." Keep pages tight and move detailed "About Us" or technical info to dedicated sub-pages.
+- **PT Integration:** Every Personal Training section must leverage the Momence integration and include a lead form for goals/situation assessment.
+
+## The "Wow Factor" Guidelines
+- **Visuals:** Use the [BLOK London](https://www.bloklondon.com/) aesthetic as a benchmark: high contrast, minimalist, heavy typography.
+- **Interactions:** Implement subtle micro-interactions on all interactive elements using `framer-motion`.
+- **Media:** Prioritize large, optimized background videos to establish the "vibe" immediately.
+
+## Critical Business Logic
+- Never remove the "Starter Pack" (£49) CTA from the primary gateway.
+- Refer to @business_context.md for all specific gym details, prices, and copy.

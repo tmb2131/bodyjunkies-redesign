@@ -1,65 +1,162 @@
+import { GatewaySplit } from "./components/gateway-split";
+import { HomeHero } from "./components/home-hero";
+import { ReviewsCarousel } from "./components/reviews-carousel";
+import { ServicesBento } from "./components/services-bento";
+import { getHomeMedia } from "./lib/media";
 import Image from "next/image";
 
-export default function Home() {
+const SCHEDULE_URL = "https://momence.com/appointments/93353?boardId=94755";
+const STARTER_PACK_IMAGE = "/assets/%28WEB%29BODYJUNKIES_210124_0064.jpg";
+
+export default async function Home() {
+  const media = await getHomeMedia();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="pb-nav-offset">
+      <HomeHero
+        heroImage={media.gatewayImage}
+        heroVideo="/assets/52dae399-9b5c-4536-987f-a0fdd2710d18.mov"
+      />
+
+      <GatewaySplit
+        beginnerImage={STARTER_PACK_IMAGE}
+        experiencedImage={media.gatewayImage}
+        experiencedVideo="/assets/10secs.mov"
+      />
+
+      <section
+        id="reviews"
+        className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10"
+      >
+        <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+            Reviews
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+          <h2 className="mt-3 text-3xl font-black uppercase text-white sm:text-4xl">
+            Real Members. Real Progress.
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm text-white/80 sm:text-base">
+            See what the Bodyjunkies community says after sessions with our
+            coaches.
+          </p>
+          <div className="mt-6">
+            <ReviewsCarousel />
+          </div>
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href={SCHEDULE_URL}
             target="_blank"
             rel="noopener noreferrer"
+            className="mt-6 inline-flex rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            View Class Schedule
+          </a>
+        </div>
+      </section>
+
+      <ServicesBento media={media.serviceAssets} />
+
+      <section
+        id="trainers"
+        className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14"
+      >
+        <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03]">
+          <div className="grid gap-0 lg:grid-cols-[1.2fr_1fr]">
+            <div className="relative min-h-[280px] sm:min-h-[360px]">
+              <Image
+                src="/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg"
+                alt="Bodyjunkies trainers together on the gym floor"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            </div>
+            <div className="p-6 sm:p-8">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                Meet The Team
+              </p>
+              <h2 className="mt-3 text-3xl font-black uppercase text-white sm:text-4xl">
+                Coaches Who Bring Grit And Precision
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm text-white/80 sm:text-base">
+                Every coach has a different lane, but the same standard:
+                structure, accountability, and proper boxing detail in every
+                session.
+              </p>
+              <a
+                href="/team"
+                className="mt-6 inline-flex rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Meet The Team
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="final-cta"
+        className="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6 lg:px-8 lg:pb-10"
+      >
+        <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+            Start Here
+          </p>
+          <h2 className="mt-3 text-3xl font-black uppercase text-white sm:text-4xl">
+            Step In. Train With Intent.
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm text-white/80 sm:text-base">
+            If you are new, start with the Starter Pack to build your base.
+            If you are ready to move now, lock your next class slot.
+          </p>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a
+              href="/starter-pack"
+              className="inline-flex items-center justify-center rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Starter Pack £49
+            </a>
+            <a
+              href={SCHEDULE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+            >
+              View Class Schedule
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="location"
+        className="mx-auto w-full max-w-7xl px-4 pb-8 sm:px-6 lg:px-8 lg:pb-10"
+      >
+        <div className="rounded-2xl border border-white/15 bg-white/[0.03] p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+            Location
+          </p>
+          <h2 className="mt-3 text-3xl font-black uppercase text-white sm:text-4xl">
+            Train With Us In Islington
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm text-white/80 sm:text-base">
+            Find Bodyjunkies in Islington and step in for boxing and fitness
+            sessions built around grit, structure, and progress.
+          </p>
+          <div className="mt-6 overflow-hidden rounded-xl border border-white/15">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2480.89910346624!2d-0.11407002359254548!3d51.55174910746285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b7473021b31%3A0x1958817c0ec4e2a6!2sBodyjunkies%20%7C%20Fitness%20%26%20Boxing%20Studio%20Islington!5e0!3m2!1sen!2suk!4v1772036651677!5m2!1sen!2suk"
+              className="h-[360px] w-full sm:h-[420px]"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Bodyjunkies Islington location"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+    </main>
   );
 }
