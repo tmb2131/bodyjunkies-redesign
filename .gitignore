@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local oversized source media
+public/assets/Copy of Bodyjunkies Class video (Shaz) EDITED 1min.mp4
