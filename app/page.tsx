@@ -43,9 +43,7 @@ export default async function Home() {
             <ReviewsCarousel />
           </div>
           <a
-            href={SCHEDULE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/schedule"
             className="mt-6 inline-flex rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
           >
             View Class Schedule
@@ -123,9 +121,7 @@ export default async function Home() {
               Starter Pack £49
             </a>
             <a
-              href={SCHEDULE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/schedule"
               className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               View Class Schedule
