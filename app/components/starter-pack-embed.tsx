@@ -6,6 +6,7 @@ import { trackEvent } from "../lib/analytics";
 const BOOKING_CONFIRMED_URL = "https://bodyjunkies.co.uk/booking-confirmed";
 const STARTER_PACK_BASE_URL =
   "https://momence.com/Bodyjunkies/membership/Intro-Package/539286";
+const FALLBACK_BOOKING_URL = STARTER_PACK_BASE_URL;
 
 function withReturnUrl(url: string) {
   const nextUrl = new URL(url);
@@ -24,6 +25,9 @@ export function StarterPackEmbed() {
     () => typeof window !== "undefined" && !("IntersectionObserver" in window)
   );
   const [iframeHeight, setIframeHeight] = useState(1200);
+  const [iframeStatus, setIframeStatus] = useState<"loading" | "ready" | "error">(
+    "loading"
+  );
   const hasTrackedBookingCompleteRef = useRef(false);
 
   useEffect(() => {
@@ -60,6 +64,7 @@ export function StarterPackEmbed() {
     if (!shouldLoad) {
       return;
     }
+    setIframeStatus("loading");
 
     const onMessage = (event: MessageEvent) => {
       const iframeWindow = iframeRef.current?.contentWindow;
@@ -129,26 +134,43 @@ export function StarterPackEmbed() {
       ref={containerRef}
       className="relative min-h-[1000px] bg-gradient-to-b from-white/[0.04] to-transparent"
     >
-      {!shouldLoad && (
+      {!shouldLoad || iframeStatus === "loading" ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
           <div className="h-10 w-10 animate-pulse rounded-full border border-white/25 bg-white/10" />
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/75">
             Loading Starter Pack Checkout
           </p>
         </div>
-      )}
-      {shouldLoad && (
+      ) : null}
+      {iframeStatus === "error" ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center">
+          <p className="max-w-md text-sm text-white/80">
+            Checkout did not load on this connection.
+          </p>
+          <a
+            href={FALLBACK_BOOKING_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center rounded-full bg-[var(--bj-red)] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Open Checkout In New Tab
+          </a>
+        </div>
+      ) : null}
+      {shouldLoad && iframeStatus !== "error" ? (
         <iframe
           ref={iframeRef}
           src={STARTER_PACK_URL}
           title="Starter Pack - Bodyjunkies"
-          className="w-full border-0"
+          className="w-full border-0 transition-[height] duration-300 ease-out"
           style={{ height: `${iframeHeight}px`, minHeight: "1000px" }}
           loading="lazy"
           scrolling="no"
           allowFullScreen
+          onLoad={() => setIframeStatus("ready")}
+          onError={() => setIframeStatus("error")}
         />
-      )}
+      ) : null}
     </div>
   );
 }
