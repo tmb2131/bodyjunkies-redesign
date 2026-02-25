@@ -3,8 +3,6 @@
 import { motion } from "framer-motion";
 import { CalendarCheck2, Dumbbell, House, Info, Users } from "lucide-react";
 
-const BOOKING_URL = "https://momence.com/appointments/93353?boardId=94755";
-
 const links = [
   { label: "Home", href: "/", icon: House },
   { label: "Services", href: "#services", icon: Dumbbell },
@@ -37,9 +35,7 @@ export function MobileBottomNav() {
           <motion.a
             whileTap={{ scale: 0.97 }}
             whileHover={{ scale: 1.02 }}
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/starter-pack"
             className="flex min-h-11 flex-col items-center justify-center gap-1 rounded-xl bg-[var(--bj-red)] text-[11px] font-bold uppercase tracking-[0.08em] text-white"
           >
             <CalendarCheck2 className="h-4 w-4" />
