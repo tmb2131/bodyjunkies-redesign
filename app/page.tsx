@@ -42,13 +42,13 @@ export default async function Home() {
       />
       <HomeHero
         heroImage={media.gatewayImage}
-        heroVideo="/assets/52dae399-9b5c-4536-987f-a0fdd2710d18.mov"
+        heroVideo="/assets/10secs.mov"
       />
 
       <GatewaySplit
         beginnerImage={STARTER_PACK_IMAGE}
         experiencedImage={media.gatewayImage}
-        experiencedVideo="/assets/10secs.mov"
+        experiencedVideo="/assets/52dae399-9b5c-4536-987f-a0fdd2710d18.mov"
       />
 
       <section
