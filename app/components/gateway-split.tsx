@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { useState } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight, Flame, Shield } from "lucide-react";
 import { getVideoSourceCandidates } from "../lib/video";
 
@@ -20,20 +19,13 @@ export function GatewaySplit({
   experiencedImage,
   experiencedVideo,
 }: GatewaySplitProps) {
-  const { scrollY } = useScroll();
-  const [showFloatingCta, setShowFloatingCta] = useState(false);
   const experiencedVideoSources = experiencedVideo
     ? getVideoSourceCandidates(experiencedVideo)
     : [];
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setShowFloatingCta(latest > 760);
-  });
-
   return (
-    <>
-      <section className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
-        <div className="grid gap-4 md:grid-cols-2">
+    <section className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 lg:px-8 lg:pt-6">
+      <div className="grid gap-4 md:grid-cols-2">
         <motion.article
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +89,7 @@ export function GatewaySplit({
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               poster={experiencedImage}
               aria-label="Experienced boxers training at Bodyjunkies"
             >
@@ -145,27 +137,7 @@ export function GatewaySplit({
             </motion.div>
           </div>
         </motion.article>
-        </div>
-      </section>
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: showFloatingCta ? 1 : 0, y: showFloatingCta ? 0 : 16 }}
-        transition={{ duration: 0.25 }}
-        className="pointer-events-none fixed inset-x-4 bottom-[calc(var(--floating-cta-bottom-mobile)+env(safe-area-inset-bottom))] z-30 hidden justify-center md:inset-x-auto md:right-6 md:bottom-6 md:flex"
-      >
-        <motion.div
-          whileTap={{ scale: 0.98 }}
-          whileHover={{ scale: 1.02 }}
-        >
-          <Link
-            href={STARTER_PACK_PATH}
-            className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-white/40 bg-black/70 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm"
-          >
-            Starter Pack £49
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </motion.div>
-      </motion.div>
-    </>
+      </div>
+    </section>
   );
 }

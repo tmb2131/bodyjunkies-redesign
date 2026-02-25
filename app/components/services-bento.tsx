@@ -51,7 +51,7 @@ export function ServicesBento({ media }: ServicesBentoProps) {
   const tileMedia = [media[0], media[1], media[2]].filter(Boolean) as string[];
 
   return (
-    <section id="services" className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <section id="services" className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
       <div className="mb-6 flex items-end justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
@@ -77,7 +77,7 @@ export function ServicesBento({ media }: ServicesBentoProps) {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.4, delay: index * 0.04 }}
               whileHover={{ y: -4 }}
-              className="group relative min-h-[18rem] overflow-hidden rounded-2xl border border-white/15 md:min-h-[22rem]"
+              className="group relative min-h-[16rem] overflow-hidden rounded-2xl border border-white/15 md:min-h-[22rem]"
             >
               {mediaUrl ? (
                 isVideo(mediaUrl) ? (
@@ -87,7 +87,7 @@ export function ServicesBento({ media }: ServicesBentoProps) {
                     muted
                     loop
                     playsInline
-                    preload="metadata"
+                    preload="none"
                     aria-label={`${tile.title} training footage at Bodyjunkies`}
                   >
                     {getVideoSourceCandidates(mediaUrl).map((source) => (

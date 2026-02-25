@@ -1,13 +1,41 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useState } from "react";
 
 const MOMENCE_REVIEWS_SCRIPT_SRC = "https://momence.com/plugin/reviews/reviews.js";
 
 export function ReviewsCarousel() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(
+    () => typeof window !== "undefined" && typeof IntersectionObserver === "undefined"
+  );
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    if (typeof IntersectionObserver === "undefined") {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px" }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoad) return;
     const container = containerRef.current;
     if (!container) return;
 
@@ -42,7 +70,7 @@ export function ReviewsCarousel() {
     return () => {
       script.remove();
     };
-  }, []);
+  }, [shouldLoad]);
 
   return (
     <>
