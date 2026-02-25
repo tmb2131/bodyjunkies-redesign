@@ -105,15 +105,66 @@ export default function PricingPage() {
             </article>
           </div>
 
-          <div className="mt-6 rounded-xl border border-white/15 bg-black/20 p-4">
+          <div className="mt-6 rounded-xl border border-white/15 bg-black/20 p-4 sm:p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
-              Membership Notes
+              Memberships
             </p>
-            <p className="mt-2 text-sm text-white/85">
-              Ongoing package and membership options can change by season and
-              class demand. Confirm latest pricing and billing details at
-              checkout in Momence.
-            </p>
+            <div className="mt-4 grid gap-3 lg:grid-cols-3">
+              <article className="rounded-xl border border-white/15 bg-white/5 p-4">
+                <h3 className="text-lg font-black uppercase text-white">
+                  B-Unlimited
+                </h3>
+                <p className="mt-1 text-2xl font-black text-white">£199.00</p>
+                <p className="mt-2 text-sm text-white/85">
+                  Unlimited class access every month to fuel your fire.
+                </p>
+                <Link
+                  href="https://momence.com/Bodyjunkies/membership/B-Unlimited/540930"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--bj-red)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
+                >
+                  Start B-Unlimited
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
+
+              <article className="rounded-xl border border-white/15 bg-white/5 p-4">
+                <h3 className="text-lg font-black uppercase text-white">B-12</h3>
+                <p className="mt-1 text-2xl font-black text-white">£168.00</p>
+                <p className="mt-2 text-sm text-white/85">
+                  12 class credits every month to fuel your fire. Unused
+                  credits roll over once.
+                </p>
+                <Link
+                  href="https://momence.com/Bodyjunkies/membership/B-12-/539306"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--bj-red)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
+                >
+                  Start B-12
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
+
+              <article className="rounded-xl border border-white/15 bg-white/5 p-4">
+                <h3 className="text-lg font-black uppercase text-white">B-8</h3>
+                <p className="mt-1 text-2xl font-black text-white">£128.00</p>
+                <p className="mt-2 text-sm text-white/85">
+                  8 class credits every month to fuel your fire. Unused credits
+                  roll over once.
+                </p>
+                <Link
+                  href="https://momence.com/Bodyjunkies/membership/B-8/539635"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--bj-red)] px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
+                >
+                  Start B-8
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
+            </div>
           </div>
         </section>
       </div>
