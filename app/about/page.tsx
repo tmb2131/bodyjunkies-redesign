@@ -5,7 +5,7 @@ import { AboutContent } from "../components/about-content";
 export const metadata = {
   title: "About Us | Bodyjunkies",
   description:
-    "Learn the Bodyjunkies mission, vision, values, and approach to boxer-style training built on community and accountability.",
+    "Discover Bodyjunkies: gritty small-group boxing and fitness coaching in London, built on community, accountability, and inner fire.",
 };
 
 export default function AboutPage() {

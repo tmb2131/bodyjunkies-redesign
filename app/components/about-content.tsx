@@ -50,7 +50,7 @@ export function AboutContent() {
             alt="Bodyjunkies members training together with wraps on, smiling and standing proud after class"
             fill
             priority
-            className="object-cover"
+            className="object-cover object-[50%_16%] sm:object-[50%_20%] lg:object-[50%_24%]"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(0,0,0,0.86)_0%,rgba(0,0,0,0.56)_52%,rgba(0,0,0,0.76)_100%)]" />
