@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { trackEvent } from "../lib/analytics";
 
@@ -11,6 +10,9 @@ const LEAD_FORM_CONTAINER_ID = "momence-plugin-lead-form";
 const BOOKING_CONFIRMED_URL = "https://bodyjunkies.co.uk/booking-confirmed";
 const APPOINTMENTS_BASE_URL = "https://momence.com/appointments/93353";
 const FALLBACK_BOOKING_URL = APPOINTMENTS_BASE_URL;
+const BOOKING_COMPLETE_PATTERN =
+  /(book|appointment|checkout).*(complete|success|confirmed)|confirmation/;
+const LEAD_SUBMIT_PATTERN = /(lead|form).*(submit|success)|enquiry|inquiry/;
 
 function withReturnUrl(url: string) {
   const nextUrl = new URL(url);
@@ -22,65 +24,63 @@ function withReturnUrl(url: string) {
 
 const APPOINTMENTS_URL = withReturnUrl(APPOINTMENTS_BASE_URL);
 
+function isMomenceOrigin(origin: string) {
+  if (!origin) return false;
+  try {
+    const hostname = new URL(origin).hostname;
+    return hostname === "momence.com" || hostname.endsWith(".momence.com");
+  } catch {
+    return false;
+  }
+}
+
+function getMessageText(data: unknown) {
+  if (typeof data === "string") return data.toLowerCase();
+  if (!data || typeof data !== "object") return "";
+  const payload = data as Record<string, unknown>;
+  const textParts = ["type", "event", "status", "message", "action", "name"]
+    .map((key) => payload[key])
+    .filter((value): value is string => typeof value === "string")
+    .map((value) => value.toLowerCase());
+  return textParts.join(" ");
+}
+
 export function MomencePersonalTrainingEmbed() {
   const leadFormRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
   const hasTrackedLeadSubmitRef = useRef(false);
   const hasTrackedBookingCompleteRef = useRef(false);
-  const [shouldLoad, setShouldLoad] = useState(
-    () => typeof window !== "undefined" && !("IntersectionObserver" in window)
-  );
   const [appointmentsStatus, setAppointmentsStatus] = useState<
     "idle" | "loading" | "ready" | "error"
-  >(shouldLoad ? "loading" : "idle");
+  >("loading");
   const [leadFormStatus, setLeadFormStatus] = useState<
     "idle" | "loading" | "ready" | "error"
-  >(shouldLoad ? "loading" : "idle");
+  >("loading");
+  const shouldLoadAppointments = true;
+  const shouldLoadLeadForm = true;
 
   useEffect(() => {
-    if (shouldLoad) return;
-    const container = sectionRef.current;
-    if (!container || !("IntersectionObserver" in window)) return;
+    if (!shouldLoadAppointments && !shouldLoadLeadForm) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((entry) => entry.isIntersecting)) return;
-        setShouldLoad(true);
-        setAppointmentsStatus("loading");
-        setLeadFormStatus("loading");
-        observer.disconnect();
-      },
-      { rootMargin: "280px 0px" }
-    );
+    function handleMomenceMessage(event: MessageEvent) {
+      if (!isMomenceOrigin(event.origin)) return;
 
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, [shouldLoad]);
-
-  useEffect(() => {
-    if (!shouldLoad) return;
-    function handleResizeMessage(e: MessageEvent) {
       const payload =
-        typeof e.data === "object" && e.data !== null
-          ? (e.data as { height?: number | string; type?: string })
+        typeof event.data === "object" && event.data !== null
+          ? (event.data as { height?: number | string; type?: string })
           : {};
       const height = Number(payload.height ?? Number.NaN);
       const type = payload.type;
-      const iframe = document.querySelector<HTMLIFrameElement>(`#${IFRAME_ID}`);
-
-      if (!type || !type.match("iframe_appointments_93353_resize") || Number.isNaN(height) || !iframe) {
-        return;
+      if (shouldLoadAppointments && type?.includes("iframe_appointments_93353_resize")) {
+        const iframe = document.querySelector<HTMLIFrameElement>(`#${IFRAME_ID}`);
+        if (!Number.isNaN(height) && iframe) {
+          iframe.height = `${height}px`;
+        }
       }
 
-      iframe.height = `${height}px`;
-
-      const textPayload =
-        typeof e.data === "string" ? e.data.toLowerCase() : JSON.stringify(e.data).toLowerCase();
+      const textPayload = getMessageText(event.data);
       if (
         !hasTrackedBookingCompleteRef.current &&
-        /(book|appointment|checkout).*(complete|success|confirmed)|confirmation/.test(
-          textPayload
-        )
+        BOOKING_COMPLETE_PATTERN.test(textPayload)
       ) {
         hasTrackedBookingCompleteRef.current = true;
         trackEvent("booking_complete", {
@@ -88,32 +88,32 @@ export function MomencePersonalTrainingEmbed() {
           path: window.location.pathname,
         });
       }
+
+      if (!hasTrackedLeadSubmitRef.current && LEAD_SUBMIT_PATTERN.test(textPayload)) {
+        hasTrackedLeadSubmitRef.current = true;
+        trackEvent("pt_form_submit", {
+          source: "lead_form_post_message",
+          path: window.location.pathname,
+        });
+      }
     }
 
-    window.addEventListener("message", handleResizeMessage, false);
-
+    window.addEventListener("message", handleMomenceMessage, false);
     return () => {
-      window.removeEventListener("message", handleResizeMessage, false);
+      window.removeEventListener("message", handleMomenceMessage, false);
     };
-  }, [shouldLoad]);
+  }, [shouldLoadAppointments, shouldLoadLeadForm]);
 
   useEffect(() => {
-    if (!shouldLoad) return;
+    if (!shouldLoadLeadForm) return;
     const leadFormContainer = leadFormRef.current;
     if (!leadFormContainer) return;
-    setLeadFormStatus("loading");
-
-    const existingScript = document.querySelector<HTMLScriptElement>(
-      `script[src="${LEAD_FORM_SCRIPT_SRC}"]`
-    );
-    if (existingScript) {
-      existingScript.remove();
-    }
 
     const script = document.createElement("script");
     script.async = true;
     script.type = "module";
     script.id = "momence-plugin-lead-form-src";
+    script.setAttribute("fetchpriority", "low");
     script.setAttribute("host_id", "93353");
     script.setAttribute("fields", "firstName,lastName,email,phoneNumber");
     script.setAttribute("token", "zyXo3KnqXB");
@@ -142,47 +142,14 @@ export function MomencePersonalTrainingEmbed() {
     };
     leadFormContainer.addEventListener("submit", onSubmit, true);
 
-    const onMessage = (event: MessageEvent) => {
-      const message =
-        typeof event.data === "string"
-          ? event.data.toLowerCase()
-          : JSON.stringify(event.data).toLowerCase();
-
-      if (
-        !hasTrackedLeadSubmitRef.current &&
-        /(lead|form).*(submit|success)|enquiry|inquiry/.test(message)
-      ) {
-        hasTrackedLeadSubmitRef.current = true;
-        trackEvent("pt_form_submit", {
-          source: "lead_form_post_message",
-          path: window.location.pathname,
-        });
-      }
-
-      if (
-        !hasTrackedBookingCompleteRef.current &&
-        /(book|appointment|checkout).*(complete|success|confirmed)|confirmation/.test(
-          message
-        )
-      ) {
-        hasTrackedBookingCompleteRef.current = true;
-        trackEvent("booking_complete", {
-          source: "momence_post_message",
-          path: window.location.pathname,
-        });
-      }
-    };
-    window.addEventListener("message", onMessage);
-
     return () => {
       leadFormContainer.removeEventListener("submit", onSubmit, true);
-      window.removeEventListener("message", onMessage);
       script.remove();
     };
-  }, [shouldLoad]);
+  }, [shouldLoadLeadForm]);
 
   return (
-    <div ref={sectionRef} className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <div className="rounded-2xl border border-white/15 bg-white/[0.02] p-4 sm:p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
           Choose Your Route
@@ -224,7 +191,7 @@ export function MomencePersonalTrainingEmbed() {
           Choose a 1:1 slot that fits your week and lock it in directly below.
         </p>
         <div className="mt-5 overflow-hidden rounded-xl border border-white/15 bg-black/20 p-2 sm:p-3">
-          {!shouldLoad || appointmentsStatus === "loading" ? (
+          {appointmentsStatus === "loading" ? (
             <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 px-5 text-center">
               <div className="h-10 w-10 animate-pulse rounded-full border border-white/25 bg-white/10" />
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/75">
@@ -247,13 +214,14 @@ export function MomencePersonalTrainingEmbed() {
               </a>
             </div>
           ) : null}
-          {shouldLoad && appointmentsStatus !== "error" ? (
+          {shouldLoadAppointments && appointmentsStatus !== "error" ? (
             <iframe
               id={IFRAME_ID}
               src={APPOINTMENTS_URL}
               className="min-h-[60vh] w-full border-0"
               allowFullScreen
               scrolling="no"
+              loading="lazy"
               title="Bodyjunkies Personal Training Appointments"
               onLoad={() => setAppointmentsStatus("ready")}
               onError={() => setAppointmentsStatus("error")}
@@ -281,7 +249,7 @@ export function MomencePersonalTrainingEmbed() {
           Reach out and we&apos;ll discuss where you are now and what you want from your sessions.
         </p>
         <div className="mt-5 rounded-xl border border-white/10 bg-black/20 p-3 sm:p-4">
-          {!shouldLoad || leadFormStatus === "loading" ? (
+          {leadFormStatus === "loading" ? (
             <div className="flex min-h-[140px] flex-col items-center justify-center gap-3 px-5 text-center">
               <div className="h-10 w-10 animate-pulse rounded-full border border-white/25 bg-white/10" />
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/75">

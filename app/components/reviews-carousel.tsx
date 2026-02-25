@@ -17,6 +17,9 @@ export function ReviewsCarousel() {
     if (typeof IntersectionObserver === "undefined") {
       return;
     }
+    const rootMargin = window.matchMedia("(max-width: 768px)").matches
+      ? "120px 0px"
+      : "240px 0px";
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -27,7 +30,7 @@ export function ReviewsCarousel() {
           observer.disconnect();
         }
       },
-      { rootMargin: "200px 0px" }
+      { rootMargin }
     );
 
     observer.observe(container);
@@ -39,19 +42,13 @@ export function ReviewsCarousel() {
     const container = containerRef.current;
     if (!container) return;
 
-    const existingScript = document.querySelector(
-      `script[src="${MOMENCE_REVIEWS_SCRIPT_SRC}"]`
-    );
-    if (existingScript) {
-      existingScript.remove();
-    }
-
     const reviewsRoot = document.createElement("div");
     reviewsRoot.id = "momence-plugin-reviews";
 
     const script = document.createElement("script");
     script.async = true;
     script.type = "module";
+    script.setAttribute("fetchpriority", "low");
     script.setAttribute("host_id", "93353");
     script.setAttribute("is_profile_picture_enabled", "true");
     script.setAttribute("is_text_only_enabled", "true");

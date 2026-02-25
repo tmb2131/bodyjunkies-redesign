@@ -9,6 +9,7 @@ const FALLBACK_BOOKING_URL = "https://momence.com/appointments/93353";
 
 export function MomenceScheduleEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const pluginMountRef = useRef<HTMLDivElement>(null);
   const [shouldLoad, setShouldLoad] = useState(
     () => typeof window !== "undefined" && !("IntersectionObserver" in window)
   );
@@ -34,6 +35,7 @@ export function MomenceScheduleEmbed() {
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         setShouldLoad(true);
+        setStatus("loading");
         observer.disconnect();
       },
       { rootMargin }
@@ -45,9 +47,8 @@ export function MomenceScheduleEmbed() {
 
   useEffect(() => {
     if (!shouldLoad) return;
-    const container = containerRef.current;
-    if (!container) return;
-    setStatus("loading");
+    const pluginMount = pluginMountRef.current;
+    if (!pluginMount) return;
 
     const script = document.createElement("script");
     script.async = true;
@@ -65,12 +66,12 @@ export function MomenceScheduleEmbed() {
 
     const wrapper = document.createElement("div");
     wrapper.id = "ribbon-schedule";
-    container.innerHTML = "";
-    container.appendChild(wrapper);
-    container.appendChild(script);
+    pluginMount.replaceChildren(wrapper, script);
 
     return () => {
-      script.remove();
+      script.onload = null;
+      script.onerror = null;
+      pluginMount.replaceChildren();
     };
   }, [shouldLoad]);
 
@@ -79,6 +80,7 @@ export function MomenceScheduleEmbed() {
       ref={containerRef}
       className="relative min-h-[540px] rounded-xl border border-white/10 bg-black/20"
     >
+      <div ref={pluginMountRef} className="min-h-[540px]" />
       {!shouldLoad || status === "loading" ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-5 text-center">
           <div className="h-10 w-10 animate-pulse rounded-full border border-white/25 bg-white/10" />
