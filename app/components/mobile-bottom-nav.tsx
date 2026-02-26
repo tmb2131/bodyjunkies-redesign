@@ -43,17 +43,17 @@ export function MobileBottomNav() {
   return (
     <nav
       aria-label="Mobile navigation"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-white/15 bg-[color:var(--bj-navy)]/95 px-3 pb-[calc(0.8rem+env(safe-area-inset-bottom))] pt-3 [transform:translateZ(0)] md:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-white/15 bg-[color:var(--bj-navy)]/95 px-3 pb-[calc(0.8rem+env(safe-area-inset-bottom))] pt-2.5 [transform:translateZ(0)] md:hidden"
     >
       <motion.div
-        whileTap={{ scale: 0.97 }}
-        whileHover={{ scale: 1.02 }}
-        className="mx-auto mb-2 flex max-w-lg justify-center"
+        whileTap={{ scale: 0.99 }}
+        whileHover={{ scale: 1.01 }}
+        className="mx-auto mb-1.5 flex max-w-lg justify-center"
       >
         <Link
           href="/starter-pack"
           aria-label="Book Starter Pack £49"
-          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/20 bg-[var(--bj-red)] px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_10px_24px_rgba(148,4,5,0.45)]"
+          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/15 bg-[var(--bj-red)]/95 px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_6px_14px_rgba(148,4,5,0.24)]"
         >
           <CalendarCheck2 className="h-3.5 w-3.5" />
           Starter Pack £49

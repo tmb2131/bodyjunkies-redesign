@@ -22,7 +22,7 @@ type Tile = {
 const tiles: Tile[] = [
   {
     title: "Personal Training",
-    copy: "1:1 coaching tailored to your level, goals, and pace.",
+    copy: "1:1 coaching built around your level, goals, and pace.",
     href: "/personal-training",
     cta: "Book 1:1 Session",
     icon: Users,
@@ -51,7 +51,7 @@ export function ServicesBento({ media }: ServicesBentoProps) {
   const tileMedia = [media[0], media[1], media[2]].filter(Boolean) as string[];
 
   return (
-    <section id="services" className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+    <section id="services" className="mx-auto w-full max-w-7xl px-4 pb-8 pt-10 sm:px-6 sm:py-10 lg:px-8 lg:py-16">
       <div className="mb-5 flex items-end justify-between gap-4 sm:mb-6">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
@@ -63,10 +63,9 @@ export function ServicesBento({ media }: ServicesBentoProps) {
         </div>
       </div>
 
-      <div className="md:hidden">
+      <div className="mt-1 md:hidden">
         {(() => {
           const primary = tiles[0];
-          const Icon = primary.icon;
           const mediaUrl = tileMedia[0];
           const external = primary.href.startsWith("http");
           return (
@@ -106,21 +105,18 @@ export function ServicesBento({ media }: ServicesBentoProps) {
                 ) : (
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,#f69523_0%,#221e3a_45%,#000000_100%)]" />
                 )}
-                <div className="absolute inset-0 bg-black/55 transition-colors group-hover:bg-black/45" />
+                <div className="absolute inset-0 bg-black/65 transition-colors group-hover:bg-black/55" />
                 <div className="relative z-10 flex h-full flex-col justify-between p-5">
-                  <div className="space-y-3">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
-                      <Icon className="h-4 w-4 text-white" />
-                    </span>
+                  <div className="space-y-2.5">
                     <h4 className="text-xl font-extrabold uppercase text-white">{primary.title}</h4>
-                    <p className="max-w-md text-sm text-white/85">{primary.copy}</p>
+                    <p className="max-w-md text-sm text-white/90">{primary.copy}</p>
                   </div>
                   <motion.div whileTap={{ scale: 0.98 }} whileHover={{ scale: 1.02 }}>
                     <Link
                       href={primary.href}
                       target={external ? "_blank" : undefined}
                       rel={external ? "noopener noreferrer" : undefined}
-                      className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm"
+                      className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-white/20 bg-[var(--bj-red)] px-5 py-2.5 text-xs font-bold uppercase tracking-[0.12em] text-white shadow-[0_8px_20px_rgba(148,4,5,0.35)]"
                     >
                       {primary.cta}
                       <ArrowRight className="h-3.5 w-3.5" />
@@ -137,10 +133,10 @@ export function ServicesBento({ media }: ServicesBentoProps) {
                         href={tile.href}
                         target={ext ? "_blank" : undefined}
                         rel={ext ? "noopener noreferrer" : undefined}
-                        className="flex items-center justify-between text-white/85 transition hover:text-white"
+                      className="flex items-center justify-between text-white/75 transition hover:text-white/90"
                       >
-                        <span className="text-sm font-semibold">{tile.title}</span>
-                        <span className="text-xs font-semibold uppercase tracking-[0.1em]">
+                        <span className="text-sm font-medium">{tile.title}</span>
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/65">
                           {tile.cta}
                         </span>
                       </Link>
