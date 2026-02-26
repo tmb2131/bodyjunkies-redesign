@@ -10,6 +10,8 @@ type Trainer = {
   name: string;
   role: string;
   image: string;
+  /** Optional object-position to adjust crop (e.g. "center 35%" to show more of top). */
+  imagePosition?: string;
   alt: string;
   professionalInfo: string;
   personalStyle: string;
@@ -20,7 +22,7 @@ const trainers: Trainer[] = [
     id: "alan",
     name: "Alan",
     role: "Combat Sports Coach",
-    image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
+    image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0837.jpg",
     alt: "Trainer profile image for Alan at Bodyjunkies",
     professionalInfo:
       "With over 30 years of experience in combat sports, Alan is a former British Taekwondo Champion who grew up in an era where grit, sweat, and hard work were part of everyday life. He has coached both amateur and professional fighters, helping them sharpen technique, build relentless stamina, and develop mental toughness in and out of the ring.",
@@ -31,7 +33,7 @@ const trainers: Trainer[] = [
     id: "jason",
     name: "Jason",
     role: "England Boxing & BBBoC Coach",
-    image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
+    image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0302.jpg",
     alt: "Trainer profile image for Jason at Bodyjunkies",
     professionalInfo:
       "With over a decade coaching in the ring and two decades in professional fitness, Jason is a certified England Boxing Level 1 Amateur Coach and a British Boxing Board of Control (BBBoC) Licensed Professional Coach. He has trained everyone from complete beginners to competitive fighters, with specialties in technical and tactical boxing, amateur/professional/white-collar fight prep, and strength, conditioning, and endurance training.",
@@ -53,7 +55,7 @@ const trainers: Trainer[] = [
     id: "chudi",
     name: "Chudi",
     role: "ABA Level 2 Coach & Head Trainer",
-    image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
+    image: "/assets/%28WEB%29BODYJUNKIES_210124_1160.jpg",
     alt: "Trainer profile image for Chudi at Bodyjunkies",
     professionalInfo:
       "Chudi is an Amateur Boxing Alliance Level 2 coach and head trainer of Trojan ABC, with 15 years in the sport as both a boxer and a teacher.",
@@ -64,7 +66,8 @@ const trainers: Trainer[] = [
     id: "stephen",
     name: "Stephen",
     role: "Personal Trainer",
-    image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
+    image: "/assets/%28WEB%29BODYJUNKIES_210124_1301.jpg",
+    imagePosition: "center 10%",
     alt: "Trainer profile image for Stephen at Bodyjunkies",
     professionalInfo:
       "Stephen is a highly experienced personal trainer who has helped individuals achieve their fitness goals for the past 15 years.",
@@ -102,6 +105,7 @@ export function TeamTrainerCards() {
                   alt={trainer.alt}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  style={trainer.imagePosition ? { objectPosition: trainer.imagePosition } : undefined}
                   sizes="(max-width: 640px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
