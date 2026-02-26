@@ -41,7 +41,7 @@ export function HomeHero({ heroImage, heroVideo }: HomeHeroProps) {
         <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.55)_50%,rgba(0,0,0,0.78)_100%)] sm:hidden" />
         <div className="absolute inset-0 hidden bg-[linear-gradient(110deg,rgba(0,0,0,0.86)_0%,rgba(0,0,0,0.52)_45%,rgba(0,0,0,0.75)_100%)] sm:block" />
 
-        <div className="relative z-10 flex min-h-[70svh] items-end p-6 sm:min-h-[74svh] sm:p-8 lg:p-10">
+        <div className="relative z-10 flex min-h-[70svh] flex-col justify-between p-6 sm:min-h-[74svh] sm:p-8 lg:p-10">
           <div className="max-w-2xl">
             <p className="inline-flex items-center rounded-full border border-white/35 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/90">
               Boxing And Fitness In Islington
@@ -55,7 +55,9 @@ export function HomeHero({ heroImage, heroVideo }: HomeHeroProps) {
               Small-group boxing sessions with structure, accountability, and a
               real training standard.
             </p>
-            <div className="mt-5 flex flex-col items-start gap-4 sm:mt-7 sm:flex-row sm:items-center">
+          </div>
+          <div>
+            <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
               <Link
                 href="/starter-pack"
                 className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
