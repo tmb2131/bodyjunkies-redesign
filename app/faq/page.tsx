@@ -91,18 +91,18 @@ export default function FaqPage() {
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <a
+            <Link
               href="/starter-pack"
               className="inline-flex items-center justify-center rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
             >
               Starter Pack £49
-            </a>
-            <a
+            </Link>
+            <Link
               href="/schedule"
               className="inline-flex items-center justify-center rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
             >
               View Schedule
-            </a>
+            </Link>
           </div>
         </section>
       </div>
