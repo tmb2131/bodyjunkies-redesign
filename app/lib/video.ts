@@ -13,7 +13,7 @@ function inferVideoType(src: string): VideoSource["type"] {
 
 export function getVideoSourceCandidates(src: string): VideoSource[] {
   const baseWithoutExt = src.replace(/\.[^.]+$/, "");
-  const candidates = [`${baseWithoutExt}.webm`, `${baseWithoutExt}.mp4`, src];
+  const candidates = [`${baseWithoutExt}.mp4`, `${baseWithoutExt}.webm`, src];
   const uniqueSources = [...new Set(candidates)];
 
   return uniqueSources.map((candidate) => ({
