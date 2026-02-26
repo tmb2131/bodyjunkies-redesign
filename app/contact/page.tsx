@@ -88,14 +88,17 @@ export default function ContactPage() {
             <p className="mt-2 text-sm text-white/85">
               {siteConfig.addressLine1}, {siteConfig.addressLine2}
             </p>
-            <a
-              href={siteConfig.mapsHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-flex rounded-full border border-white/35 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:scale-[1.02]"
-            >
-              Open In Google Maps
-            </a>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2480.89910346624!2d-0.11407002359254548!3d51.55174910746285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b7473021b31%3A0x1958817c0ec4e2a6!2sBodyjunkies%20%7C%20Fitness%20%26%20Boxing%20Studio%20Islington!5e0!3m2!1sen!2suk!4v1772113760158!5m2!1sen!2suk"
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="mt-4 w-full rounded-lg"
+              title="Bodyjunkies location map"
+            />
           </div>
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
