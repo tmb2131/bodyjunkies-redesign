@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 type GalleryItem = {
   src: string;
@@ -43,32 +43,8 @@ const galleryItems: GalleryItem[] = [
 ];
 
 export function CommunityGallery() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
-
-  const total = useMemo(() => galleryItems.length, []);
-
-  useEffect(() => {
-    const nodes = slideRefs.current.filter(Boolean) as HTMLDivElement[];
-    if (!nodes.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const index = Number((entry.target as HTMLElement).dataset.index ?? 0);
-          setActiveIndex(index);
-        });
-      },
-      {
-        root: null,
-        threshold: 0.65,
-      }
-    );
-
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
+  const shouldReduceMotion = useReducedMotion();
+  const loopedItems = [...galleryItems, ...galleryItems];
 
   return (
     <section
@@ -86,59 +62,57 @@ export function CommunityGallery() {
         the energy in the room.
       </p>
 
-      <div className="mt-6 md:hidden">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {galleryItems.map((item, index) => (
-            <div
-              key={item.src}
-              ref={(node) => {
-                slideRefs.current[index] = node;
-              }}
-              data-index={index}
-              className="relative aspect-[4/5] w-[82%] shrink-0 snap-center overflow-hidden rounded-2xl border border-white/20"
-            >
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                className="object-cover"
-                sizes="82vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 flex items-center justify-center gap-2">
-          {Array.from({ length: total }).map((_, index) => (
-            <span
-              key={index}
-              className={`h-1.5 rounded-full transition-all ${
-                index === activeIndex ? "w-6 bg-white" : "w-1.5 bg-white/35"
-              }`}
-              aria-hidden="true"
-            />
-          ))}
-        </div>
-      </div>
+      <div className="relative mt-6">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#221E3A] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#221E3A] to-transparent" />
 
-      <div className="mt-6 hidden grid-cols-3 gap-3 md:grid">
-        {galleryItems.map((item, index) => (
-          <div
-            key={item.src}
-            className={`group relative overflow-hidden rounded-2xl border border-white/15 ${
-              index % 3 === 0 ? "aspect-[4/5]" : "aspect-square"
-            }`}
-          >
-            <Image
-              src={item.src}
-              alt={item.alt}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-              sizes="(max-width: 1024px) 33vw, 25vw"
-            />
-            <div className="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/10" />
+        {shouldReduceMotion ? (
+          <div className="flex gap-3 overflow-x-auto pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            {galleryItems.map((item) => (
+              <div
+                key={item.src}
+                className="group relative aspect-[4/5] w-[78vw] max-w-[21rem] shrink-0 overflow-hidden rounded-2xl border border-white/20 md:w-[18rem] lg:w-[20rem]"
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 78vw, (max-width: 1280px) 18rem, 20rem"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex w-max gap-3"
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{
+                ease: "linear",
+                duration: 85,
+                repeat: Infinity,
+              }}
+            >
+              {loopedItems.map((item, index) => (
+                <div
+                  key={`${item.src}-${index}`}
+                  className="group relative aspect-[4/5] w-[78vw] max-w-[21rem] shrink-0 overflow-hidden rounded-2xl border border-white/20 md:w-[18rem] lg:w-[20rem]"
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 78vw, (max-width: 1280px) 18rem, 20rem"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        )}
       </div>
     </section>
   );
