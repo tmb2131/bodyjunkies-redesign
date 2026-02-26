@@ -35,6 +35,7 @@ export function GatewaySplit({
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.45 }}
           whileHover={{ scale: 1.01 }}
+          id="gateway-beginner-card"
           className="relative min-h-[50svh] overflow-hidden rounded-3xl border border-white/20 sm:min-h-[64svh]"
         >
           <Image

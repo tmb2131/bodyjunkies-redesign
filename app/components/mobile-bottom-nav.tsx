@@ -13,10 +13,12 @@ const links = [
   { label: "Schedule", href: "/schedule", icon: CalendarCheck2 },
   { label: "Contact", href: "/contact", icon: Mail },
 ];
+const CTA_REVEAL_VIEWPORT_RATIO = 0.2;
 
 export function MobileBottomNav() {
   const pathname = usePathname();
   const [hash, setHash] = useState("");
+  const [showStarterPackCta, setShowStarterPackCta] = useState(false);
 
   useEffect(() => {
     const updateHash = () => {
@@ -27,6 +29,37 @@ export function MobileBottomNav() {
     window.addEventListener("hashchange", updateHash);
     return () => window.removeEventListener("hashchange", updateHash);
   }, []);
+
+  useEffect(() => {
+    const shouldTrackBeginnerCard = pathname === "/";
+
+    if (!shouldTrackBeginnerCard) {
+      setShowStarterPackCta(false);
+      return;
+    }
+
+    const updateStarterPackVisibility = () => {
+      const beginnerCard = document.getElementById("gateway-beginner-card");
+
+      if (!beginnerCard) {
+        setShowStarterPackCta(false);
+        return;
+      }
+
+      const beginnerCardBounds = beginnerCard.getBoundingClientRect();
+      const revealLine = window.innerHeight * CTA_REVEAL_VIEWPORT_RATIO;
+      setShowStarterPackCta(beginnerCardBounds.bottom <= revealLine);
+    };
+
+    updateStarterPackVisibility();
+    window.addEventListener("scroll", updateStarterPackVisibility, { passive: true });
+    window.addEventListener("resize", updateStarterPackVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", updateStarterPackVisibility);
+      window.removeEventListener("resize", updateStarterPackVisibility);
+    };
+  }, [pathname]);
 
   const isActiveLink = (href: string) => {
     if (href.startsWith("/#")) {
@@ -43,21 +76,29 @@ export function MobileBottomNav() {
   return (
     <nav
       aria-label="Mobile navigation"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-white/15 bg-[color:var(--bj-navy)]/95 px-3 pb-[calc(0.8rem+env(safe-area-inset-bottom))] pt-2.5 [transform:translateZ(0)] md:hidden"
+      className={`fixed inset-x-0 bottom-0 z-50 border-t border-white/15 bg-[color:var(--bj-navy)]/95 px-3 pb-[calc(0.8rem+env(safe-area-inset-bottom))] [transform:translateZ(0)] transition-[padding-top] duration-200 md:hidden ${showStarterPackCta ? "pt-2.5" : "pt-1.5"}`}
     >
       <motion.div
-        whileTap={{ scale: 0.99 }}
-        whileHover={{ scale: 1.01 }}
-        className="mx-auto mb-1.5 flex max-w-lg justify-center"
+        initial={false}
+        animate={
+          showStarterPackCta
+            ? { opacity: 1, y: 0, scale: 1 }
+            : { opacity: 0, y: 10, scale: 0.98 }
+        }
+        transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+        className={`mx-auto flex max-w-lg justify-center overflow-hidden transition-[height,margin-bottom] duration-200 ${showStarterPackCta ? "mb-1.5 h-10" : "mb-0 h-0"}`}
+        style={{ pointerEvents: showStarterPackCta ? "auto" : "none" }}
       >
-        <Link
-          href="/starter-pack"
-          aria-label="Book Starter Pack £49"
-          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/15 bg-[var(--bj-red)]/95 px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_6px_14px_rgba(148,4,5,0.24)]"
-        >
-          <CalendarCheck2 className="h-3.5 w-3.5" />
-          Starter Pack £49
-        </Link>
+        <motion.div whileTap={{ scale: 0.99 }} whileHover={{ scale: 1.01 }}>
+          <Link
+            href="/starter-pack"
+            aria-label="Book Starter Pack £49"
+            className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/15 bg-[var(--bj-red)]/95 px-4 py-2 text-xs font-bold uppercase tracking-[0.1em] text-white shadow-[0_6px_14px_rgba(148,4,5,0.24)]"
+          >
+            <CalendarCheck2 className="h-3.5 w-3.5" />
+            Starter Pack £49
+          </Link>
+        </motion.div>
       </motion.div>
       <ul className="mx-auto grid max-w-lg grid-cols-5 gap-2 rounded-2xl border border-white/10 bg-black/20 px-2 py-2">
         {links.map((link) => {
