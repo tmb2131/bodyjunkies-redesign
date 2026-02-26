@@ -8,31 +8,38 @@ type GalleryItem = {
   alt: string;
 };
 
+const CAROUSEL_BASE = "/assets/Carousel";
+
+function carouselSrc(filename: string) {
+  return `${CAROUSEL_BASE}/${encodeURIComponent(filename)}`;
+}
+
 const galleryItems: GalleryItem[] = [
-  {
-    src: "/assets/%28WEB%29BODYJUNKIES_210124_0064.jpg",
-    alt: "Bodyjunkies members lined up for a boxing drill",
-  },
-  {
-    src: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
-    alt: "Coach guiding technique on the gym floor",
-  },
-  {
-    src: "/assets/%28WEB%29BODYJUNKIES_210124_1301.jpg",
-    alt: "Members working combinations on pads",
-  },
-  {
-    src: "/assets/Boxing%20at%20BJ.jpg",
-    alt: "Group training together with wraps and gloves",
-  },
-  {
-    src: "/assets/Boxing%20at%20BJ-2.jpg",
-    alt: "Conditioning rounds inside the Bodyjunkies studio",
-  },
-  {
-    src: "/assets/womens-boxing-north-london-fitness-boxing-bodyjunkies-04%20%281%29.jpg",
-    alt: "Women training in a boxing fitness session",
-  },
+  { src: carouselSrc("Boxing at BJ.jpg"), alt: "Group training at Bodyjunkies" },
+  { src: carouselSrc("Boxing at BJ-72.jpg"), alt: "Boxing session in the studio" },
+  { src: carouselSrc("Boxing at BJ-75.jpg"), alt: "Members training with gloves" },
+  { src: carouselSrc("Boxing at BJ-77.jpg"), alt: "Conditioning rounds at Bodyjunkies" },
+  { src: carouselSrc("Boxing at BJ-78.jpg"), alt: "Small-group boxing class" },
+  { src: carouselSrc("Boxing at BJ-81.jpg"), alt: "Coach-led session in the room" },
+  { src: carouselSrc("Boxing at BJ-90.jpg"), alt: "Tribe training together" },
+  { src: carouselSrc("Boxing at BJ-95.jpg"), alt: "Boxing fitness at Bodyjunkies" },
+  { src: carouselSrc("Boxing at BJ-96.jpg"), alt: "High-energy class moment" },
+  { src: carouselSrc("boxing-gym-islington-fitness-classes-bodyjunkies-01 (1).jpg"), alt: "Boxing gym Islington fitness classes" },
+  { src: carouselSrc("boxing-studio-north-london-hiit-conditioning-bodyjunkies-02 (1).jpg"), alt: "Boxing studio North London HIIT conditioning" },
+  { src: carouselSrc("personal-trainer-islington-small-group-classes-bodyjunkies-03 (1).jpg"), alt: "Personal trainer small-group classes" },
+  { src: carouselSrc("fitness-coaching-islington-small-group-sessions-bodyjunkies-05 (1).jpg"), alt: "Fitness coaching small-group sessions" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_0208.jpg"), alt: "Bodyjunkies training" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_0302.jpg"), alt: "Session in the room" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_0771.jpg"), alt: "Members working combinations" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_0837.jpg"), alt: "Coaching on the floor" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_0865.jpg"), alt: "Boxing drill at Bodyjunkies" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_1021.jpg"), alt: "Tribe in motion" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_1022.jpg"), alt: "Training with inner fire" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_1122.jpg"), alt: "Small-group standards" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_1128.jpg"), alt: "Boxing and conditioning" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_1137.jpg"), alt: "Real people, real coaching" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_1148.jpg"), alt: "Bodyjunkies community" },
+  { src: carouselSrc("(WEB)BODYJUNKIES_210124_1193.jpg"), alt: "Grit in the room" },
 ];
 
 export function CommunityGallery() {
