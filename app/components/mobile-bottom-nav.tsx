@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CalendarCheck2, Dumbbell, House, Mail, Wallet } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 
 const links = [
   { label: "Home", href: "/", icon: House },
@@ -29,6 +29,11 @@ export function MobileBottomNav() {
     window.addEventListener("hashchange", updateHash);
     return () => window.removeEventListener("hashchange", updateHash);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setHash(window.location.hash);
+  }, [pathname]);
 
   useEffect(() => {
     const shouldTrackBeginnerCard = pathname === "/";
@@ -73,6 +78,27 @@ export function MobileBottomNav() {
     return pathname === href;
   };
 
+  const handleNavClick =
+    (href: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+      if (typeof window === "undefined") return;
+
+      if (href.startsWith("/#")) {
+        setHash(href.slice(1));
+        return;
+      }
+
+      if (href === "/" && pathname === "/") {
+        event.preventDefault();
+
+        if (window.location.hash) {
+          window.history.replaceState(null, "", "/");
+          setHash("");
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+
   return (
     <nav
       aria-label="Mobile navigation"
@@ -109,6 +135,7 @@ export function MobileBottomNav() {
             <motion.li key={link.label} whileTap={{ scale: 0.94 }}>
               <Link
                 href={link.href}
+                onClick={handleNavClick(link.href)}
                 className={`flex min-h-12 flex-col items-center justify-center gap-1 rounded-xl text-[11px] font-semibold uppercase tracking-[0.06em] transition ${isActive ? "bg-white/15 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]" : "text-white/70 hover:bg-white/10 hover:text-white"}`}
               >
                 <Icon className={`h-4 w-4 transition-transform ${isActive ? "scale-105" : ""}`} />
