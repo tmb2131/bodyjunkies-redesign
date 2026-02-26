@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, Flame, ShieldCheck, Users } from "lucide-react";
+import { CommunityGallery } from "./community-gallery";
 
 const STARTER_PACK_PATH = "/starter-pack";
 const HERO_IMAGE = "/assets/Boxing%20at%20BJ.jpg";
@@ -242,6 +243,8 @@ export function AboutContent() {
             together on and off the gym floor.
           </p>
         </motion.section>
+
+        <CommunityGallery />
 
         <motion.section
           initial={{ opacity: 0, y: 18 }}
