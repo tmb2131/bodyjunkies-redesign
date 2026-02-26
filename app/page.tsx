@@ -48,7 +48,7 @@ export default async function Home() {
       <GatewaySplit
         beginnerImage={STARTER_PACK_IMAGE}
         experiencedImage={media.gatewayImage}
-        experiencedVideo="/assets/52dae399-9b5c-4536-987f-a0fdd2710d18.mov"
+        experiencedVideo="/assets/10sec%20video_v2.mov"
       />
 
       <ServicesBento
