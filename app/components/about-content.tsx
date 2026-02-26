@@ -6,7 +6,7 @@ import { ArrowRight, CheckCircle2, Flame, ShieldCheck, Users } from "lucide-reac
 import { CommunityGallery } from "./community-gallery";
 
 const STARTER_PACK_PATH = "/starter-pack";
-const HERO_IMAGE = "/assets/Carousel/Boxing%20at%20BJ.jpg";
+const HERO_IMAGE = "/assets/Carousel/Boxing%20at%20BJ.webp";
 
 const values = [
   {

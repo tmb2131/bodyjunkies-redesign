@@ -22,7 +22,7 @@ const trainers: Trainer[] = [
     id: "alan",
     name: "Alan",
     role: "Combat Sports Coach",
-    image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0837.jpg",
+    image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0837.webp",
     alt: "Trainer profile image for Alan at Bodyjunkies",
     professionalInfo:
       "With over 30 years of experience in combat sports, Alan is a former British Taekwondo Champion who grew up in an era where grit, sweat, and hard work were part of everyday life. He has coached both amateur and professional fighters, helping them sharpen technique, build relentless stamina, and develop mental toughness in and out of the ring.",
@@ -33,7 +33,7 @@ const trainers: Trainer[] = [
     id: "jason",
     name: "Jason",
     role: "England Boxing & BBBoC Coach",
-    image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0302.jpg",
+    image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0302.webp",
     alt: "Trainer profile image for Jason at Bodyjunkies",
     professionalInfo:
       "With over a decade coaching in the ring and two decades in professional fitness, Jason is a certified England Boxing Level 1 Amateur Coach and a British Boxing Board of Control (BBBoC) Licensed Professional Coach. He has trained everyone from complete beginners to competitive fighters, with specialties in technical and tactical boxing, amateur/professional/white-collar fight prep, and strength, conditioning, and endurance training.",
@@ -44,7 +44,7 @@ const trainers: Trainer[] = [
     id: "sabrina",
     name: "Sabrina",
     role: "Boxing Coach & Active Competitor",
-    image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg",
+    image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.webp",
     alt: "Trainer profile image for Sabrina at Bodyjunkies",
     professionalInfo:
       "Sabrina began her boxing journey in Australia before moving to London and continuing her progression as a dedicated member of Bodyjunkies. She competed in white-collar bouts before stepping into the amateur boxing circuit, and now coaches while actively competing.",
@@ -55,7 +55,7 @@ const trainers: Trainer[] = [
     id: "chudi",
     name: "Chudi",
     role: "ABA Level 2 Coach & Head Trainer",
-    image: "/assets/%28WEB%29BODYJUNKIES_210124_1160.jpg",
+    image: "/assets/%28WEB%29BODYJUNKIES_210124_1160.webp",
     alt: "Trainer profile image for Chudi at Bodyjunkies",
     professionalInfo:
       "Chudi is an Amateur Boxing Alliance Level 2 coach and head trainer of Trojan ABC, with 15 years in the sport as both a boxer and a teacher.",
@@ -66,7 +66,7 @@ const trainers: Trainer[] = [
     id: "stephen",
     name: "Stephen",
     role: "Personal Trainer",
-    image: "/assets/%28WEB%29BODYJUNKIES_210124_1301.jpg",
+    image: "/assets/%28WEB%29BODYJUNKIES_210124_1301.webp",
     imagePosition: "center 10%",
     alt: "Trainer profile image for Stephen at Bodyjunkies",
     professionalInfo:

@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star } from "lucide-react";
 
-const STARTER_PACK_IMAGE = "/assets/%28WEB%29BODYJUNKIES_210124_0064.jpg";
+const STARTER_PACK_IMAGE = "/assets/%28WEB%29BODYJUNKIES_210124_0064.webp";
 
 export const metadata = buildPageMetadata({
   title: "Bodyjunkies | Fuel Your Fire",
@@ -51,20 +51,20 @@ export default async function Home() {
       />
       <HomeHero
         heroImage={media.gatewayImage}
-        heroVideo="/assets/10secs.mov"
+        heroVideo="/assets/10secs.mp4"
       />
 
       <GatewaySplit
         beginnerImage={STARTER_PACK_IMAGE}
         experiencedImage={media.gatewayImage}
-        experiencedVideo="/assets/10sec%20video_v2.mov"
+        experiencedVideo="/assets/10sec%20video_v2.mp4"
       />
 
       <ServicesBento
         media={[
           media.serviceAssets[0],
-          "/assets/%28WEB%29BODYJUNKIES_210124_1301.jpg",
-          "/assets/womens-boxing-north-london-fitness-boxing-bodyjunkies-04%20%281%29.jpg",
+          "/assets/%28WEB%29BODYJUNKIES_210124_1301.webp",
+          "/assets/womens-boxing-north-london-fitness-boxing-bodyjunkies-04%20%281%29.webp",
         ].filter(Boolean) as string[]}
       />
 
@@ -112,7 +112,7 @@ export default async function Home() {
           <div className="grid gap-0 lg:grid-cols-[1.2fr_1fr]">
             <div className="relative min-h-[280px] sm:min-h-[360px]">
               <Image
-                src="/assets/%28WEB%29BODYJUNKIES_210124_0647.jpg"
+                src="/assets/%28WEB%29BODYJUNKIES_210124_0647.webp"
                 alt="Bodyjunkies trainers together on the gym floor"
                 fill
                 className="object-cover"

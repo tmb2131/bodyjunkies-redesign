@@ -10,8 +10,8 @@ export type HomeMedia = {
 };
 
 const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
-const VIDEO_EXTENSIONS = new Set([".mp4", ".webm", ".mov"]);
-const FALLBACK_IMAGE = "/assets/Boxing%20at%20BJ-2.jpg";
+const VIDEO_EXTENSIONS = new Set([".mp4", ".webm"]);
+const FALLBACK_IMAGE = "/assets/Boxing%20at%20BJ-2.webp";
 
 function toAssetUrl(fileName: string) {
   return `/assets/${fileName.split("/").map(encodeURIComponent).join("/")}`;
