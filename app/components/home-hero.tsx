@@ -63,17 +63,7 @@ export function HomeHero({ heroImage, heroVideo }: HomeHeroProps) {
                 Starter Pack £49
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link
-                href="/schedule"
-                className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-white/60 bg-black/45 px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98] sm:w-auto"
-              >
-                Book Session
-              </Link>
             </div>
-            <p className="mt-4 text-[13px] leading-relaxed text-white/85 sm:text-sm">
-              New? Starter Pack £49 includes brand-new gloves + wraps. Already
-              training? Book Session.
-            </p>
             <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.11em] text-white/90">
               <span className="inline-flex items-center gap-0.5" aria-hidden="true">
                 {[1, 2, 3, 4, 5].map((i) => (
