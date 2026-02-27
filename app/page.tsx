@@ -110,16 +110,16 @@ export default async function Home() {
       >
         <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03]">
           <div className="grid gap-0 lg:grid-cols-[1.2fr_1fr]">
-            <div className="relative min-h-[280px] sm:min-h-[360px]">
+            <Link href="/team" className="group relative block min-h-[280px] sm:min-h-[360px]" aria-label="Meet the team" tabIndex={-1}>
               <Image
                 src="/assets/%28WEB%29BODYJUNKIES_210124_0647.webp"
                 alt="Bodyjunkies trainers together on the gym floor"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-            </div>
+            </Link>
             <div className="p-6 sm:p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
                 Meet The Team

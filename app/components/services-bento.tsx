@@ -90,63 +90,68 @@ export function ServicesBento({ media }: ServicesBentoProps) {
                   const isPrimaryTile = index === 0;
 
                   return (
-                    <motion.article
+                    <Link
                       key={tile.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.3 }}
-                      transition={{ duration: 0.4, delay: index * 0.04 }}
-                      whileHover={{ y: -4 }}
-                      className={`group relative overflow-hidden rounded-2xl border border-white/15 ${isPrimaryTile ? "min-h-[16.5rem]" : "min-h-[14rem]"}`}
+                      href={tile.href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      aria-label={`${tile.title}: ${tile.cta}`}
+                      className="block cursor-pointer"
                     >
-                      {mediaUrl ? (
-                        isVideo(mediaUrl) ? (
-                          <video
-                            className="absolute inset-0 h-full w-full object-cover"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            preload="none"
-                            aria-label={tile.videoAriaLabel}
-                          >
-                            {getVideoSourceCandidates(mediaUrl).map((source) => (
-                              <source key={source.src} src={source.src} type={source.type} />
-                            ))}
-                          </video>
+                      <motion.article
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        transition={{ duration: 0.4, delay: index * 0.04 }}
+                        whileHover={{ y: -4 }}
+                        className={`group relative overflow-hidden rounded-2xl border border-white/15 ${isPrimaryTile ? "min-h-[16.5rem]" : "min-h-[14rem]"}`}
+                      >
+                        {mediaUrl ? (
+                          isVideo(mediaUrl) ? (
+                            <video
+                              className="absolute inset-0 h-full w-full object-cover"
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                              preload="none"
+                              aria-label={tile.videoAriaLabel}
+                            >
+                              {getVideoSourceCandidates(mediaUrl).map((source) => (
+                                <source key={source.src} src={source.src} type={source.type} />
+                              ))}
+                            </video>
+                          ) : (
+                            <Image
+                              src={mediaUrl}
+                              alt={tile.imageAlt}
+                              fill
+                              className="object-cover"
+                              sizes="100vw"
+                            />
+                          )
                         ) : (
-                          <Image
-                            src={mediaUrl}
-                            alt={tile.imageAlt}
-                            fill
-                            className="object-cover"
-                            sizes="100vw"
-                          />
-                        )
-                      ) : (
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,#f69523_0%,#221e3a_45%,#000000_100%)]" />
-                      )}
-                      <div className="absolute inset-0 bg-black/65 transition-colors group-hover:bg-black/55" />
-                      <div className={`relative z-10 flex flex-col justify-between p-5 ${isPrimaryTile ? "min-h-[16.5rem]" : "min-h-[14rem]"}`}>
-                        <div className="space-y-2.5">
-                          <h4 className={`${isPrimaryTile ? "text-xl" : "text-lg"} font-extrabold uppercase text-white`}>
-                            {tile.title}
-                          </h4>
-                          <p className="max-w-md text-sm text-white/90">{tile.copy}</p>
-                        </div>
-                        <motion.div whileTap={{ scale: 0.98 }} whileHover={{ scale: 1.02 }}>
-                          <Link
-                            href={tile.href}
-                            target={external ? "_blank" : undefined}
-                            rel={external ? "noopener noreferrer" : undefined}
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,#f69523_0%,#221e3a_45%,#000000_100%)]" />
+                        )}
+                        <div className="absolute inset-0 bg-black/65 transition-colors group-hover:bg-black/55" />
+                        <div className={`relative z-10 flex flex-col justify-between p-5 ${isPrimaryTile ? "min-h-[16.5rem]" : "min-h-[14rem]"}`}>
+                          <div className="space-y-2.5">
+                            <h4 className={`${isPrimaryTile ? "text-xl" : "text-lg"} font-extrabold uppercase text-white`}>
+                              {tile.title}
+                            </h4>
+                            <p className="max-w-md text-sm text-white/90">{tile.copy}</p>
+                          </div>
+                          <motion.span
+                            whileTap={{ scale: 0.98 }}
+                            whileHover={{ scale: 1.02 }}
                             className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm sm:w-fit"
                           >
                             {tile.cta}
                             <ArrowRight className="h-4 w-4" />
-                          </Link>
-                        </motion.div>
-                      </div>
-                    </motion.article>
+                          </motion.span>
+                        </div>
+                      </motion.article>
+                    </Link>
                   );
                 })}
               </div>
@@ -178,68 +183,73 @@ export function ServicesBento({ media }: ServicesBentoProps) {
           const isPrimaryTile = index === 0;
 
           return (
-            <motion.article
+            <Link
               key={tile.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.4, delay: index * 0.04 }}
-              whileHover={{ y: -4 }}
-              className={`group relative overflow-hidden rounded-2xl border border-white/15 ${isPrimaryTile ? "min-h-[16.5rem] sm:min-h-[18rem] md:min-h-[22rem]" : "min-h-[12.5rem] sm:min-h-[16rem] md:min-h-[22rem]"}`}
+              href={tile.href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              aria-label={`${tile.title}: ${tile.cta}`}
+              className="block h-full cursor-pointer"
             >
-              {mediaUrl ? (
-                isVideo(mediaUrl) ? (
-                  <video
-                    className="absolute inset-0 h-full w-full object-cover"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                    aria-label={tile.videoAriaLabel}
-                  >
-                    {getVideoSourceCandidates(mediaUrl).map((source) => (
-                      <source key={source.src} src={source.src} type={source.type} />
-                    ))}
-                  </video>
+              <motion.article
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.4, delay: index * 0.04 }}
+                whileHover={{ y: -4 }}
+                className={`group relative h-full overflow-hidden rounded-2xl border border-white/15 ${isPrimaryTile ? "min-h-[16.5rem] sm:min-h-[18rem] md:min-h-[22rem]" : "min-h-[12.5rem] sm:min-h-[16rem] md:min-h-[22rem]"}`}
+              >
+                {mediaUrl ? (
+                  isVideo(mediaUrl) ? (
+                    <video
+                      className="absolute inset-0 h-full w-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                      aria-label={tile.videoAriaLabel}
+                    >
+                      {getVideoSourceCandidates(mediaUrl).map((source) => (
+                        <source key={source.src} src={source.src} type={source.type} />
+                      ))}
+                    </video>
+                  ) : (
+                    <Image
+                      src={mediaUrl}
+                      alt={tile.imageAlt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  )
                 ) : (
-                  <Image
-                    src={mediaUrl}
-                    alt={tile.imageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                )
-              ) : (
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,#f69523_0%,#221e3a_45%,#000000_100%)]" />
-              )}
-              <div className="absolute inset-0 bg-black/55 transition-colors group-hover:bg-black/45" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,#f69523_0%,#221e3a_45%,#000000_100%)]" />
+                )}
+                <div className="absolute inset-0 bg-black/55 transition-colors group-hover:bg-black/45" />
 
-              <div className="relative z-10 flex h-full flex-col justify-between p-5 sm:p-6">
-                <div className="space-y-3">
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
-                    <Icon className="h-4 w-4 text-white" />
-                  </span>
-                  <h4 className={`${isPrimaryTile ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} font-extrabold uppercase text-white`}>
-                    {tile.title}
-                  </h4>
-                  <p className="max-w-md text-sm text-white/85">{tile.copy}</p>
-                </div>
+                <div className="relative z-10 flex h-full flex-col justify-between p-5 sm:p-6">
+                  <div className="space-y-3">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
+                      <Icon className="h-4 w-4 text-white" />
+                    </span>
+                    <h4 className={`${isPrimaryTile ? "text-xl sm:text-2xl" : "text-lg sm:text-xl"} font-extrabold uppercase text-white`}>
+                      {tile.title}
+                    </h4>
+                    <p className="max-w-md text-sm text-white/85">{tile.copy}</p>
+                  </div>
 
-                <motion.div whileTap={{ scale: 0.98 }} whileHover={{ scale: 1.02 }}>
-                  <Link
-                    href={tile.href}
-                    target={external ? "_blank" : undefined}
-                    rel={external ? "noopener noreferrer" : undefined}
+                  <motion.span
+                    whileTap={{ scale: 0.98 }}
+                    whileHover={{ scale: 1.02 }}
                     className="inline-flex min-h-11 w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm"
                   >
                     {tile.cta}
                     <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </motion.div>
-              </div>
-            </motion.article>
+                  </motion.span>
+                </div>
+              </motion.article>
+            </Link>
           );
         })}
       </div>
