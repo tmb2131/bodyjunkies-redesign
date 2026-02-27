@@ -62,15 +62,22 @@ export function ReviewsCarousel() {
       ? "120px 0px"
       : "240px 0px";
 
+    let wasInView = false;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (!entry) return;
         if (entry.isIntersecting) {
-          setShouldLoad(true);
-          setStatus("loading");
-          setLoadAttempt((attempt) => attempt + 1);
-          observer.disconnect();
+          if (!wasInView) {
+            wasInView = true;
+            setShouldLoad(true);
+            autoRetryCountRef.current = 0;
+            setStatus("loading");
+            setLoadAttempt((attempt) => attempt + 1);
+          }
+        } else {
+          wasInView = false;
         }
       },
       { rootMargin }
