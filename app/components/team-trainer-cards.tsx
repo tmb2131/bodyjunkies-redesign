@@ -34,6 +34,7 @@ const trainers: Trainer[] = [
     name: "Jason",
     role: "England Boxing & BBBoC Coach",
     image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0302.webp",
+    imagePosition: "center 25%",
     alt: "Trainer profile image for Jason at Bodyjunkies",
     professionalInfo:
       "With over a decade coaching in the ring and two decades in professional fitness, Jason is a certified England Boxing Level 1 Amateur Coach and a British Boxing Board of Control (BBBoC) Licensed Professional Coach. He has trained everyone from complete beginners to competitive fighters, with specialties in technical and tactical boxing, amateur/professional/white-collar fight prep, and strength, conditioning, and endurance training.",
