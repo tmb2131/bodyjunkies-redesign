@@ -88,26 +88,34 @@ export function TeamTrainerCards() {
         return (
           <motion.article
             key={trainer.id}
-            whileHover={{ y: -3 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03]"
+            whileHover="hover"
+            variants={{ hover: { y: -4 } }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="rounded-2xl border border-white/15 bg-white/[0.03]"
+            style={{ overflow: "hidden" }}
           >
             <button
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => setOpenId((current) => (current === trainer.id ? null : trainer.id))}
-              className="group block w-full text-left"
+              className="block w-full text-left"
             >
               <div className="relative h-56 w-full overflow-hidden">
-                <Image
-                  src={trainer.image}
-                  alt={trainer.alt}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                  style={trainer.imagePosition ? { objectPosition: trainer.imagePosition } : undefined}
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                />
+                <motion.div
+                  className="absolute inset-0"
+                  variants={{ hover: { scale: 1.06 } }}
+                  transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <Image
+                    src={trainer.image}
+                    alt={trainer.alt}
+                    fill
+                    className="object-cover"
+                    style={trainer.imagePosition ? { objectPosition: trainer.imagePosition } : undefined}
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </motion.div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between p-4">
                   <div>
