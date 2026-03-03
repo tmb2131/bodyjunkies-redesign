@@ -30,7 +30,7 @@ export default function TeamPage() {
             Coaches Built For Every Stage
           </h1>
           <p className="mt-4 max-w-3xl text-sm text-white/80 sm:text-base">
-            Tap a trainer to open their profile. You will see their professional
+            Scan each coach's focus at a glance, then open profiles for full
             background and a personal note on how they coach sessions at
             Bodyjunkies.
           </p>

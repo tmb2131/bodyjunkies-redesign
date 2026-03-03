@@ -132,6 +132,11 @@ export default async function Home() {
                 structure, accountability, and proper boxing detail in every
                 session.
               </p>
+              <ul className="mt-4 space-y-1 text-xs font-semibold uppercase tracking-[0.08em] text-white/80 sm:text-sm">
+                <li>England Boxing / ABA-qualified coaches</li>
+                <li>Technique-first coaching</li>
+                <li>Small group attention</li>
+              </ul>
               <Link
                 href="/team"
                 className="mt-6 inline-flex rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
@@ -158,6 +163,9 @@ export default async function Home() {
             <p className="mt-4 max-w-2xl text-sm text-white/80">
               Find us in Islington. Get directions when you are ready to train.
             </p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.1em] text-white/70">
+              1 min from Holloway Road Station
+            </p>
             <a
               href={siteConfig.mapsHref}
               target="_blank"
@@ -166,11 +174,26 @@ export default async function Home() {
             >
               Get directions
             </a>
+            <Link
+              href="/contact"
+              className="mt-3 block w-fit text-xs font-semibold uppercase tracking-[0.1em] text-white/80 underline underline-offset-4 transition-colors hover:text-white"
+            >
+              Contact us
+            </Link>
           </div>
           <p className="mt-4 hidden max-w-2xl text-sm text-white/80 md:mt-4 md:block md:text-base">
             Find Bodyjunkies in Islington and step in for boxing and fitness
             sessions built around grit, structure, and progress.
           </p>
+          <p className="mt-2 hidden text-xs font-semibold uppercase tracking-[0.1em] text-white/70 md:block">
+            1 min from Holloway Road Station
+          </p>
+          <Link
+            href="/contact"
+            className="mt-3 hidden text-xs font-semibold uppercase tracking-[0.1em] text-white/80 underline underline-offset-4 transition-colors hover:text-white md:inline-flex"
+          >
+            Contact us
+          </Link>
           <div className="mt-6 hidden overflow-hidden rounded-xl border border-white/15 md:block">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2480.89910346624!2d-0.11407002359254548!3d51.55174910746285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b7473021b31%3A0x1958817c0ec4e2a6!2sBodyjunkies%20%7C%20Fitness%20%26%20Boxing%20Studio%20Islington!5e0!3m2!1sen!2suk!4v1772036651677!5m2!1sen!2suk"
@@ -203,7 +226,7 @@ export default async function Home() {
           <div className="mt-6 flex flex-col items-start gap-3">
             <Link
               href="/starter-pack"
-              className="inline-flex items-center justify-center rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              className="hidden items-center justify-center rounded-full bg-[var(--bj-red)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-transform hover:scale-[1.02] active:scale-[0.98] sm:inline-flex"
             >
               Starter Pack £49
             </Link>
@@ -213,7 +236,7 @@ export default async function Home() {
                 href="/schedule"
                 className="font-semibold uppercase tracking-[0.1em] text-white transition hover:text-white/85"
               >
-                Book Session
+                View Schedule
               </Link>
             </p>
           </div>

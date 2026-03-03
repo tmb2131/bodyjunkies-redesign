@@ -10,7 +10,17 @@ const GOOGLE_REVIEWS_URL =
 
 const loopedReviews = [...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS];
 
-function ReviewCard({ quote, author, rating }: { quote: string; author: string; rating: number }) {
+function ReviewCard({
+  summary,
+  quote,
+  author,
+  rating,
+}: {
+  summary: string;
+  quote: string;
+  author: string;
+  rating: number;
+}) {
   return (
     <motion.div
       className="block w-[82vw] max-w-[22rem] shrink-0 sm:w-[22rem]"
@@ -31,7 +41,8 @@ function ReviewCard({ quote, author, rating }: { quote: string; author: string; 
               <Star key={i} className="size-3.5 fill-[#F69523] text-[#F69523]" aria-hidden="true" />
             ))}
           </div>
-          <p className="line-clamp-5 text-sm leading-relaxed text-white/85">&ldquo;{quote}&rdquo;</p>
+          <p className="text-sm font-bold leading-relaxed text-white">&ldquo;{summary}&rdquo;</p>
+          <p className="mt-2 line-clamp-5 text-sm leading-relaxed text-white/85">&ldquo;{quote}&rdquo;</p>
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-white">{author}</p>
           <p className="mt-0.5 text-[11px] uppercase tracking-[0.12em] text-white/45">Google Review</p>
         </article>

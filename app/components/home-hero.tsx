@@ -75,13 +75,15 @@ export function HomeHero({ heroImage, heroVideo }: HomeHeroProps) {
               className="group mt-3 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.11em] text-white/90 transition-all duration-200 ease-out hover:scale-[1.05] hover:border-white/60 hover:bg-white/20 active:scale-[0.97]"
               aria-label="View Bodyjunkies reviews on Google"
             >
+              <span className="normal-case">Google Reviews</span>
+              <span aria-hidden="true">·</span>
               5.0
               <span className="inline-flex items-center gap-0.5" aria-hidden="true">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star key={i} className="size-3 fill-current" fill="currentColor" />
                 ))}
               </span>
-              <span className="normal-case">90+ reviews</span>
+              <span className="normal-case">(90+)</span>
               <ArrowUpRight className="size-3 opacity-60 transition-opacity duration-200 group-hover:opacity-100" aria-hidden="true" />
             </a>
           </div>

@@ -9,6 +9,7 @@ type Trainer = {
   id: string;
   name: string;
   role: string;
+  quickSummary: string;
   image: string;
   /** Optional object-position to adjust crop (e.g. "center 35%" to show more of top). */
   imagePosition?: string;
@@ -22,6 +23,7 @@ const trainers: Trainer[] = [
     id: "alan",
     name: "Alan",
     role: "Combat Sports Coach",
+    quickSummary: "Technical boxing focus",
     image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0837.webp",
     alt: "Trainer profile image for Alan at Bodyjunkies",
     professionalInfo:
@@ -33,6 +35,7 @@ const trainers: Trainer[] = [
     id: "jason",
     name: "Jason",
     role: "England Boxing & BBBoC Coach",
+    quickSummary: "Boxing and Conditioning Specialist",
     image: "/assets/Carousel/%28WEB%29BODYJUNKIES_210124_0302.webp",
     imagePosition: "center 25%",
     alt: "Trainer profile image for Jason at Bodyjunkies",
@@ -45,6 +48,7 @@ const trainers: Trainer[] = [
     id: "sabrina",
     name: "Sabrina",
     role: "Boxing Coach & Active Competitor",
+    quickSummary: "Beginner confidence builder",
     image: "/assets/%28WEB%29BODYJUNKIES_210124_0647.webp",
     alt: "Trainer profile image for Sabrina at Bodyjunkies",
     professionalInfo:
@@ -56,6 +60,7 @@ const trainers: Trainer[] = [
     id: "chudi",
     name: "Chudi",
     role: "ABA Level 2 Coach & Head Trainer",
+    quickSummary: "Fundamentals and ring readiness",
     image: "/assets/%28WEB%29BODYJUNKIES_210124_1160.webp",
     alt: "Trainer profile image for Chudi at Bodyjunkies",
     professionalInfo:
@@ -67,6 +72,7 @@ const trainers: Trainer[] = [
     id: "stephen",
     name: "Stephen",
     role: "Personal Trainer",
+    quickSummary: "Strength and HIIT progression",
     image: "/assets/%28WEB%29BODYJUNKIES_210124_1301.webp",
     imagePosition: "center 10%",
     alt: "Trainer profile image for Stephen at Bodyjunkies",
@@ -123,6 +129,9 @@ export function TeamTrainerCards() {
                     <p className="text-xl font-black uppercase text-white">{trainer.name}</p>
                     <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
                       {trainer.role}
+                    </p>
+                    <p className="mt-2 inline-flex rounded-full border border-white/30 bg-black/35 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-white">
+                      {trainer.quickSummary}
                     </p>
                   </div>
                   <span className="rounded-full border border-white/30 bg-white/10 p-2 text-white backdrop-blur-sm">

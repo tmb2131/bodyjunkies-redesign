@@ -31,7 +31,7 @@ export function GatewaySplit({
       <div className="grid gap-4 md:grid-cols-2">
         <Link
           href={STARTER_PACK_PATH}
-          aria-label="Beginner: See Starter Pack Details"
+          aria-label="Beginner: Start Starter Pack"
           className="block h-full cursor-pointer"
           id="gateway-beginner-card"
         >
@@ -67,13 +67,16 @@ export function GatewaySplit({
                   Build your base in the Starter Pack and{" "}
                   <span className="font-bold">keep your brand-new boxing gloves and wraps as part of your kit.</span>
                 </p>
+                <p className="text-xs font-medium uppercase tracking-[0.12em] text-white/75">
+                  No experience needed.
+                </p>
               </div>
               <motion.span
                 whileTap={{ scale: 0.98 }}
                 whileHover={{ scale: 1.01 }}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[var(--bj-red)]/40 bg-[var(--bj-red)] px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white sm:w-fit"
               >
-                See Starter Pack Details
+                Start Starter Pack
                 <ArrowRight className="h-4 w-4" />
               </motion.span>
             </div>
@@ -82,7 +85,7 @@ export function GatewaySplit({
 
         <Link
           href="/schedule"
-          aria-label="Experienced: Book Session"
+          aria-label="Experienced: View Schedule"
           className="block h-full cursor-pointer"
         >
           <motion.article
@@ -133,13 +136,16 @@ export function GatewaySplit({
                   Already equipped and ready to move? Jump straight into sessions and
                   book your next session.
                 </p>
+                <p className="text-xs font-medium uppercase tracking-[0.12em] text-white/75">
+                  Drop in to available classes.
+                </p>
               </div>
               <motion.span
                 whileTap={{ scale: 0.98 }}
                 whileHover={{ scale: 1.02 }}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-sm sm:w-fit"
               >
-                Book Session
+                View Schedule
                 <ArrowRight className="h-4 w-4" />
               </motion.span>
             </div>
